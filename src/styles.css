@@ -74,7 +74,13 @@
 
   --python: oklch(0.76 0.14 220);
   --cpp: oklch(0.72 0.18 20);
+  --html: oklch(0.75 0.16 45);
+  --css: oklch(0.74 0.15 260);
+  --java: oklch(0.78 0.16 90);
 }
+
+/* Tailwind v4 safelist — mantém classes dinâmicas de track */
+.__safelist { @apply text-python text-cpp text-html text-css text-java bg-python/15 bg-cpp/15 bg-html/15 bg-css/15 bg-java/15; }
 
 @layer base {
   * {
