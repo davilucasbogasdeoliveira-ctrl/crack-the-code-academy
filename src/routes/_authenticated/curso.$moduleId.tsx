@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { findModule, MODULES } from "@/content/modules";
+import { findModule, MODULES, trackLabel } from "@/content/modules";
 
 export const Route = createFileRoute("/_authenticated/curso/$moduleId")({
   loader: ({ params }) => {
@@ -51,7 +51,7 @@ function ModulePage() {
       <div className="mt-4 flex items-baseline gap-4">
         <span className={`font-mono text-xl text-${mod.track}`}>{String(mod.index).padStart(2, "0")}</span>
         <span className={`rounded-full bg-${mod.track}/15 px-3 py-0.5 text-xs font-mono text-${mod.track} uppercase`}>
-          {mod.track === "python" ? "Python" : "C/C++"}
+          {trackLabel(mod.track)}
         </span>
         <span className="font-mono text-xs text-muted-foreground">{mod.duration}</span>
       </div>

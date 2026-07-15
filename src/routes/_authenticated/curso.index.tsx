@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { modulesByTrack } from "@/content/modules";
+import { TRACKS, modulesByTrack, type Track } from "@/content/modules";
 
 export const Route = createFileRoute("/_authenticated/curso/")({ component: CursoIndex });
 
@@ -32,9 +32,6 @@ function CursoIndex() {
 
   if (!active) return <LockedScreen sub={sub} email={user.email!} />;
 
-  const py = modulesByTrack("python");
-  const c = modulesByTrack("cpp");
-
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
       <div className="mb-10">
@@ -45,14 +42,15 @@ function CursoIndex() {
       </div>
 
       <div className="grid gap-10 lg:grid-cols-2">
-        <TrackList track="python" title="Python" modules={py} />
-        <TrackList track="cpp" title="C / C++" modules={c} />
+        {TRACKS.map((t) => (
+          <TrackList key={t.id} track={t.id} title={t.name} modules={modulesByTrack(t.id)} />
+        ))}
       </div>
     </div>
   );
 }
 
-function TrackList({ track, title, modules }: { track: "python" | "cpp"; title: string; modules: ReturnType<typeof modulesByTrack> }) {
+function TrackList({ track, title, modules }: { track: Track; title: string; modules: ReturnType<typeof modulesByTrack> }) {
   return (
     <section>
       <h2 className={`mb-4 font-mono text-2xl font-bold text-${track}`}>{title}</h2>
@@ -100,7 +98,8 @@ function LockedScreen({ sub, email }: { sub: Sub | null; email: string }) {
           <ol className="mt-2 space-y-1 text-sm">
             <li>1. Envie o comprovante do pagamento (PIX/etc)</li>
             <li>2. Inclua seu email cadastrado: <span className="font-mono text-primary">{email}</span></li>
-            <li>3. Contato: <span className="font-mono text-foreground">davilucasbogasdeoliveira@gmail.com</span></li>
+            <li>3. WhatsApp: <a className="font-mono text-success hover:underline" target="_blank" rel="noopener noreferrer" href="https://wa.me/5514998422445">(14) 99842-2445</a></li>
+            <li>4. Email: <span className="font-mono text-foreground">davilucasbogasdeoliveira@gmail.com</span></li>
           </ol>
         </div>
 
