@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { modulesByTrack } from "@/content/modules";
 
-export const Route = createFileRoute("/_authenticated/curso")({ component: CursoIndex });
+export const Route = createFileRoute("/_authenticated/curso/")({ component: CursoIndex });
 
 type Sub = { status: "pending" | "active" | "expired" | "blocked"; expires_at: string | null; notes: string | null };
 
