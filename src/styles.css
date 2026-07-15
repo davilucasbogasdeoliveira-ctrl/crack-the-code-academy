@@ -39,6 +39,9 @@
 
   --color-python: var(--python);
   --color-cpp: var(--cpp);
+  --color-html: var(--html);
+  --color-css: var(--css);
+  --color-java: var(--java);
 }
 
 :root {
