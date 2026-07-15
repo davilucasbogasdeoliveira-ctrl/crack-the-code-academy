@@ -98,7 +98,8 @@ function LockedScreen({ sub, email }: { sub: Sub | null; email: string }) {
           <ol className="mt-2 space-y-1 text-sm">
             <li>1. Envie o comprovante do pagamento (PIX/etc)</li>
             <li>2. Inclua seu email cadastrado: <span className="font-mono text-primary">{email}</span></li>
-            <li>3. Contato: <span className="font-mono text-foreground">davilucasbogasdeoliveira@gmail.com</span></li>
+            <li>3. WhatsApp: <a className="font-mono text-success hover:underline" target="_blank" rel="noopener noreferrer" href="https://wa.me/5514998422445">(14) 99842-2445</a></li>
+            <li>4. Email: <span className="font-mono text-foreground">davilucasbogasdeoliveira@gmail.com</span></li>
           </ol>
         </div>
 
