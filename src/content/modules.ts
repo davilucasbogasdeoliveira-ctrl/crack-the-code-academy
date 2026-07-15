@@ -1,8 +1,9 @@
 // Conteúdo dos módulos — profundo mas conciso. Cada módulo tem seções.
 export type Section = { heading: string; body: string; code?: { lang: string; source: string } };
+export type Track = "python" | "cpp" | "html" | "css" | "java";
 export type Module = {
   id: string;
-  track: "python" | "cpp";
+  track: Track;
   index: number;
   title: string;
   summary: string;
@@ -10,10 +11,13 @@ export type Module = {
   sections: Section[];
 };
 
-const py = (id: string, index: number, title: string, summary: string, duration: string, sections: Section[]): Module =>
-  ({ id, track: "python", index, title, summary, duration, sections });
-const cpp = (id: string, index: number, title: string, summary: string, duration: string, sections: Section[]): Module =>
-  ({ id, track: "cpp", index, title, summary, duration, sections });
+const mk = (track: Track) => (id: string, index: number, title: string, summary: string, duration: string, sections: Section[]): Module =>
+  ({ id, track, index, title, summary, duration, sections });
+const py = mk("python");
+const cpp = mk("cpp");
+const htm = mk("html");
+const cs = mk("css");
+const jv = mk("java");
 
 export const MODULES: Module[] = [
   // ---------- PYTHON ----------
