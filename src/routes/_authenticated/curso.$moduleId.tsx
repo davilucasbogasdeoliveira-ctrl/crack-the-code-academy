@@ -59,7 +59,7 @@ function ModulePage() {
       <p className="mt-3 text-lg text-muted-foreground">{mod.summary}</p>
 
       <div className="mt-10 space-y-10">
-        {mod.sections.map((s, i) => (
+        {mod.sections.map((s: typeof mod.sections[number], i: number) => (
           <section key={i}>
             <h2 className="mb-3 flex items-baseline gap-3 text-2xl font-bold">
               <span className={`font-mono text-sm text-${mod.track}`}>§{i + 1}</span>
