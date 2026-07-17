@@ -84,6 +84,10 @@ function AdminPanel() {
                     className="rounded-md border border-border px-3 py-1.5 text-xs hover:bg-accent disabled:opacity-50">
                     +7 dias
                   </button>
+                  <button disabled={savingId === r.id} onClick={() => update(r.id, { status: "active", expires_at: null, notes: r.notes ?? "Plano vitalício" })}
+                    className="rounded-md bg-success px-3 py-1.5 text-xs font-medium text-success-foreground hover:opacity-90 disabled:opacity-50">
+                    Liberar vitalício
+                  </button>
                   <button disabled={savingId === r.id} onClick={() => update(r.id, { status: "blocked" })}
                     className="rounded-md border border-destructive/40 px-3 py-1.5 text-xs text-destructive hover:bg-destructive/10 disabled:opacity-50">
                     Bloquear
