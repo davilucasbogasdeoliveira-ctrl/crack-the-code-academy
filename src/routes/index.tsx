@@ -76,13 +76,52 @@ function Landing() {
           ))}
         </section>
 
+        <section id="planos" className="py-16">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold">Escolha seu plano</h2>
+            <p className="mt-2 text-muted-foreground">Combine o valor comigo pelo WhatsApp. Sem cobrança automática, sem pegadinha.</p>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl glass-card p-8">
+              <div className="font-mono text-xs text-muted-foreground">// plano</div>
+              <h3 className="mt-1 text-2xl font-bold">Mensal</h3>
+              <p className="mt-2 text-sm text-muted-foreground">Acesso completo por 30 dias, renovável quando quiser.</p>
+              <ul className="mt-6 space-y-2 text-sm">
+                <li className="flex gap-2"><span className="text-primary">✓</span> Todas as trilhas (HTML, CSS, Java, Python, C/C++)</li>
+                <li className="flex gap-2"><span className="text-primary">✓</span> Todos os módulos aprofundados</li>
+                <li className="flex gap-2"><span className="text-primary">✓</span> Renovação simples via WhatsApp</li>
+              </ul>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"
+                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-md border border-border px-5 py-3 font-semibold hover:bg-accent">
+                <WhatsAppIcon /> Falar sobre o Mensal
+              </a>
+            </div>
+            <div className="relative rounded-2xl glass-card p-8 border-primary/40">
+              <span className="absolute -top-3 right-6 rounded-full bg-primary px-3 py-1 text-xs font-mono font-semibold text-primary-foreground">MELHOR CUSTO</span>
+              <div className="font-mono text-xs text-primary">// plano</div>
+              <h3 className="mt-1 text-2xl font-bold gradient-text">Vitalício</h3>
+              <p className="mt-2 text-sm text-muted-foreground">Pagamento único. Acesso para sempre, incluindo módulos futuros.</p>
+              <ul className="mt-6 space-y-2 text-sm">
+                <li className="flex gap-2"><span className="text-primary">✓</span> Tudo do plano Mensal</li>
+                <li className="flex gap-2"><span className="text-primary">✓</span> Acesso vitalício, sem renovar nunca</li>
+                <li className="flex gap-2"><span className="text-primary">✓</span> Todos os módulos novos incluídos</li>
+                <li className="flex gap-2"><span className="text-primary">✓</span> Suporte direto no WhatsApp</li>
+              </ul>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"
+                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 font-semibold text-primary-foreground hover:opacity-90">
+                <WhatsAppIcon /> Falar sobre o Vitalício
+              </a>
+            </div>
+          </div>
+        </section>
+
         <section className="rounded-2xl glass-card px-8 py-12 my-16 text-center">
           <h2 className="text-3xl font-bold">Como funciona o acesso</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-3 text-left">
             {[
               ["1. Crie sua conta", "Cadastro rápido com email ou Google. Status inicial: aguardando liberação."],
-              ["2. Envie o pagamento", "Combine o pagamento comigo pelo WhatsApp ou email. Assinatura mensal."],
-              ["3. Libero seu acesso", "Assim que confirmar, você tem acesso total por 30 dias renováveis."],
+              ["2. Fale comigo no WhatsApp", "Combinamos o plano (Mensal ou Vitalício) e a forma de pagamento por lá."],
+              ["3. Libero seu acesso", "Assim que confirmar o pagamento, seu acesso é liberado na hora."],
             ].map(([t, d]) => (
               <div key={t} className="rounded-lg bg-card/60 p-6 border border-border">
                 <div className="font-mono text-sm text-primary">{t}</div>
@@ -97,19 +136,13 @@ function Landing() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-md bg-success px-5 py-3 font-semibold text-success-foreground hover:opacity-90"
             >
-              <WhatsAppIcon /> Falar no WhatsApp: (14) 99842-2445
-            </a>
-            <a
-              href={`mailto:${ADMIN_EMAIL}`}
-              className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 font-semibold hover:bg-accent"
-            >
-              {ADMIN_EMAIL}
+              <WhatsAppIcon /> WhatsApp: (14) 99842-2445
             </a>
           </div>
         </section>
 
         <footer className="border-t border-border py-8 text-center text-xs text-muted-foreground">
-          <p>Contato: <a className="hover:text-foreground" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">WhatsApp (14) 99842-2445</a> · <a className="hover:text-foreground" href={`mailto:${ADMIN_EMAIL}`}>{ADMIN_EMAIL}</a></p>
+          <p>Contato: <a className="hover:text-foreground" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">WhatsApp (14) 99842-2445</a></p>
           <p className="mt-2">© {new Date().getFullYear()} CrackDev. Todos os direitos reservados.</p>
         </footer>
       </main>
