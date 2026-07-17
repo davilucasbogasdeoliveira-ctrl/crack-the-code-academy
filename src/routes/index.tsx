@@ -9,7 +9,7 @@ const WHATSAPP_NUMBER = "14998422445";
 const WHATSAPP_LINK = `https://wa.me/55${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   "Olá! Tenho interesse no curso CrackDev e gostaria de liberar meu acesso.",
 )}`;
-const ADMIN_EMAIL = "davilucasbogasdeoliveira@gmail.com";
+
 
 function Landing() {
   const [signedIn, setSignedIn] = useState(false);
