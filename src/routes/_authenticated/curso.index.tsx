@@ -37,7 +37,11 @@ function CursoIndex() {
       <div className="mb-10">
         <h1 className="text-4xl font-bold">Área do aluno</h1>
         <p className="mt-2 text-muted-foreground">
-          {isAdmin ? "Acesso vitalício (admin)" : sub?.expires_at ? `Acesso válido até ${new Date(sub.expires_at).toLocaleDateString("pt-BR")}` : "Acesso ativo"}
+          {isAdmin
+            ? "Acesso vitalício (admin)"
+            : sub?.expires_at
+              ? `Acesso válido até ${new Date(sub.expires_at).toLocaleDateString("pt-BR")}`
+              : <>Plano <span className="font-mono text-primary">Vitalício</span> • acesso para sempre ✨</>}
         </p>
       </div>
 
