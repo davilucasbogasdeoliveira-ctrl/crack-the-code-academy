@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { findModule, MODULES, trackLabel } from "@/content/modules";
+import { PracticeBox } from "@/components/PracticeBox";
 
 export const Route = createFileRoute("/_authenticated/curso/$moduleId")({
   loader: ({ params }) => {
@@ -72,6 +73,8 @@ function ModulePage() {
           </section>
         ))}
       </div>
+
+      <PracticeBox mod={mod} />
 
       <div className="mt-16 flex items-center justify-between border-t border-border pt-6">
         {prev ? (
