@@ -28,15 +28,16 @@ export default defineTool({
 
     const supabase = supabaseForUser(ctx);
     const userId = ctx.getUserId();
-    const [{ data: sub }, { data: role }] = await Promise.all([
+    const [{ data: sub }, { data: role }, { data: access }] = await Promise.all([
       supabase.from("subscriptions").select("status,expires_at").eq("user_id", userId).maybeSingle(),
       supabase.from("user_roles").select("role").eq("user_id", userId).eq("role", "admin").maybeSingle(),
+      supabase.from("track_access").select("track").eq("user_id", userId).eq("track", mod.track).maybeSingle(),
     ]);
     const active =
       !!sub && sub.status === "active" && (!sub.expires_at || new Date(sub.expires_at) > new Date());
-    if (!role && !active) {
+    if (!role && (!active || !access)) {
       return {
-        content: [{ type: "text" as const, text: "Assinatura não está ativa. Fale com o professor no WhatsApp (14) 99842-2445." }],
+        content: [{ type: "text" as const, text: "Esta linguagem não está liberada no seu plano. Fale com o professor no WhatsApp (14) 99842-2445." }],
         isError: true,
       };
     }
