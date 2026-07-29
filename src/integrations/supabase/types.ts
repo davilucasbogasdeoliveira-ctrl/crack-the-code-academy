@@ -47,6 +47,33 @@ export type Database = {
         }
         Relationships: []
       }
+      track_access: {
+        Row: {
+          created_at: string
+          granted_by: string | null
+          id: string
+          track: Database["public"]["Enums"]["course_track"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          granted_by?: string | null
+          id?: string
+          track: Database["public"]["Enums"]["course_track"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          granted_by?: string | null
+          id?: string
+          track?: Database["public"]["Enums"]["course_track"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -77,6 +104,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "student"
+      course_track: "python" | "cpp" | "html" | "css" | "java"
       subscription_status: "pending" | "active" | "expired" | "blocked"
     }
     CompositeTypes: {
@@ -206,6 +234,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "student"],
+      course_track: ["python", "cpp", "html", "css", "java"],
       subscription_status: ["pending", "active", "expired", "blocked"],
     },
   },
