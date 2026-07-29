@@ -80,7 +80,7 @@
 }
 
 /* Tailwind v4 safelist — mantém classes dinâmicas de track */
-.__safelist { @apply text-python text-cpp text-html text-css text-java bg-python/15 bg-cpp/15 bg-html/15 bg-css/15 bg-java/15; }
+.__safelist { @apply text-python text-cpp text-html text-css text-java bg-python/15 bg-cpp/15 bg-html/15 bg-css/15 bg-java/15 border-python border-cpp border-html border-css border-java; }
 
 @layer base {
   * {
