@@ -1,55 +1,82 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { TRACKS, modulesByTrack, type Track } from "@/content/modules";
+import { useAccess, type SubRow } from "@/lib/access";
 
 export const Route = createFileRoute("/_authenticated/curso/")({ component: CursoIndex });
 
-type Sub = { status: "pending" | "active" | "expired" | "blocked"; expires_at: string | null; notes: string | null };
+const WHATSAPP_LINK = `https://wa.me/5514998422445?text=${encodeURIComponent(
+  "Olá! Quero liberar o acesso a uma linguagem do CrackDev.",
+)}`;
 
 function CursoIndex() {
   const { user } = Route.useRouteContext();
-  const [sub, setSub] = useState<Sub | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const { loading, isAdmin, sub, active, tracks } = useAccess(user.id, user.email);
 
-  useEffect(() => {
-    async function load() {
-      const [{ data: s }, { data: r }] = await Promise.all([
-        supabase.from("subscriptions").select("status,expires_at,notes").eq("user_id", user.id).maybeSingle(),
-        supabase.from("user_roles").select("role").eq("user_id", user.id).eq("role", "admin").maybeSingle(),
-      ]);
-      setSub(s as Sub | null);
-      setIsAdmin(!!r);
-      setLoading(false);
-    }
-    load();
-  }, [user.id]);
-
-  if (loading) return <div className="mx-auto max-w-6xl px-6 py-16 text-center text-muted-foreground">Carregando…</div>;
-
-  const active = isAdmin || (sub?.status === "active" && (!sub.expires_at || new Date(sub.expires_at) > new Date()));
+  if (loading)
+    return <div className="mx-auto max-w-6xl px-6 py-16 text-center text-muted-foreground">Carregando…</div>;
 
   if (!active) return <LockedScreen sub={sub} email={user.email!} />;
+
+  const unlocked = TRACKS.filter((t) => tracks.includes(t.id));
+  const locked = TRACKS.filter((t) => !tracks.includes(t.id));
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
       <div className="mb-10">
         <h1 className="text-4xl font-bold">Área do aluno</h1>
         <p className="mt-2 text-muted-foreground">
-          {isAdmin
-            ? "Acesso vitalício (admin)"
-            : sub?.expires_at
-              ? `Acesso válido até ${new Date(sub.expires_at).toLocaleDateString("pt-BR")}`
-              : <>Plano <span className="font-mono text-primary">Vitalício</span> • acesso para sempre ✨</>}
+          {isAdmin ? (
+            "Acesso total (admin)"
+          ) : (
+            <>
+              Plano <span className="font-mono text-primary">Vitalício</span> • acesso para sempre ✨
+            </>
+          )}
         </p>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-2">
-        {TRACKS.map((t) => (
-          <TrackList key={t.id} track={t.id} title={t.name} modules={modulesByTrack(t.id)} />
-        ))}
-      </div>
+      {unlocked.length === 0 ? (
+        <div className="glass-card rounded-2xl p-10 text-center">
+          <h2 className="text-2xl font-bold">Nenhuma linguagem liberada ainda</h2>
+          <p className="mt-2 text-muted-foreground">
+            Seu acesso está ativo, mas nenhuma linguagem foi atribuída à sua conta. Fale comigo no WhatsApp.
+          </p>
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"
+            className="mt-6 inline-block rounded-md bg-success px-5 py-3 font-semibold text-success-foreground hover:opacity-90">
+            WhatsApp (14) 99842-2445
+          </a>
+        </div>
+      ) : (
+        <div className="grid gap-10 lg:grid-cols-2">
+          {unlocked.map((t) => (
+            <TrackList key={t.id} track={t.id} title={t.name} modules={modulesByTrack(t.id)} />
+          ))}
+        </div>
+      )}
+
+      {locked.length > 0 && (
+        <section className="mt-16 border-t border-border pt-10">
+          <h2 className="text-xl font-bold">Linguagens não liberadas na sua conta</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Cada linguagem é vendida separadamente, com acesso vitalício. Fale comigo para liberar mais alguma.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {locked.map((t) => (
+              <div key={t.id} className="rounded-xl border border-border bg-card/40 p-5 opacity-80">
+                <div className="flex items-baseline justify-between">
+                  <h3 className={`font-mono text-lg font-bold text-${t.id}`}>{t.name}</h3>
+                  <span className="font-mono text-xs text-muted-foreground">{modulesByTrack(t.id).length} módulos</span>
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground">{t.blurb}</p>
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"
+                  className="mt-4 inline-block text-sm font-medium text-primary hover:underline">
+                  Liberar {t.name} →
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
@@ -77,13 +104,13 @@ function TrackList({ track, title, modules }: { track: Track; title: string; mod
   );
 }
 
-function LockedScreen({ sub, email }: { sub: Sub | null; email: string }) {
+function LockedScreen({ sub, email }: { sub: SubRow | null; email: string }) {
   const status = sub?.status ?? "pending";
   const messages: Record<string, { title: string; body: string; tone: "warning" | "destructive" }> = {
-    pending: { title: "Aguardando liberação do acesso", body: "Sua conta foi criada. Envie o comprovante do pagamento por email para que eu libere seu acesso.", tone: "warning" },
-    expired: { title: "Sua assinatura expirou", body: "Renove sua assinatura para continuar tendo acesso ao conteúdo.", tone: "warning" },
+    pending: { title: "Aguardando liberação do acesso", body: "Sua conta foi criada. Fale comigo no WhatsApp para escolher a linguagem e liberar o acesso vitalício.", tone: "warning" },
+    expired: { title: "Acesso não liberado", body: "Fale comigo no WhatsApp para reativar seu acesso.", tone: "warning" },
     blocked: { title: "Acesso bloqueado", body: "Entre em contato para regularizar.", tone: "destructive" },
-    active: { title: "Aguardando confirmação", body: "Assinatura ativa mas expirada. Renove.", tone: "warning" },
+    active: { title: "Aguardando confirmação", body: "Acesso em processamento. Fale comigo no WhatsApp.", tone: "warning" },
   };
   const m = messages[status];
   return (
@@ -100,10 +127,10 @@ function LockedScreen({ sub, email }: { sub: Sub | null; email: string }) {
         <div className="mt-8 rounded-lg border border-border bg-background/50 p-5 text-left">
           <p className="text-xs font-mono text-muted-foreground">Como liberar:</p>
           <ol className="mt-2 space-y-1 text-sm">
-            <li>1. Envie o comprovante do pagamento (PIX/etc)</li>
-            <li>2. Inclua seu email cadastrado: <span className="font-mono text-primary">{email}</span></li>
-            <li>3. WhatsApp: <a className="font-mono text-success hover:underline" target="_blank" rel="noopener noreferrer" href="https://wa.me/5514998422445">(14) 99842-2445</a></li>
-            <li>4. Email: <span className="font-mono text-foreground">davilucasbogasdeoliveira@gmail.com</span></li>
+            <li>1. Escolha a linguagem que quer aprender (HTML, CSS, Java, Python ou C/C++)</li>
+            <li>2. Envie o comprovante do pagamento (PIX/etc)</li>
+            <li>3. Inclua seu email cadastrado: <span className="font-mono text-primary">{email}</span></li>
+            <li>4. WhatsApp: <a className="font-mono text-success hover:underline" target="_blank" rel="noopener noreferrer" href={WHATSAPP_LINK}>(14) 99842-2445</a></li>
           </ol>
         </div>
 
