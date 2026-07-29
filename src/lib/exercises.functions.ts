@@ -4,26 +4,29 @@ import { generateText } from "ai";
 import { z } from "zod";
 
 const Input = z.object({
-  moduleTitle: z.string(),
-  moduleSummary: z.string(),
-  language: z.string(),
-  exercisePrompt: z.string(),
-  userCode: z.string(),
+  moduleTitle: z.string().min(1).max(200),
+  moduleSummary: z.string().max(1000),
+  language: z.string().min(1).max(30),
+  exercisePrompt: z.string().max(4000),
+  userCode: z.string().max(20000),
+  track: z.enum(["python", "cpp", "html", "css", "java"]),
 });
 
 export const evaluateExercise = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => Input.parse(data))
   .handler(async ({ data, context }) => {
-    // Verifica assinatura ativa ou admin
+    // Verifica assinatura ativa (vitalícia) + linguagem liberada, ou admin
     const { supabase, userId } = context;
-    const [{ data: sub }, { data: role }] = await Promise.all([
+    const [{ data: sub }, { data: role }, { data: access }] = await Promise.all([
       supabase.from("subscriptions").select("status,expires_at").eq("user_id", userId).maybeSingle(),
       supabase.from("user_roles").select("role").eq("user_id", userId).eq("role", "admin").maybeSingle(),
+      supabase.from("track_access").select("track").eq("user_id", userId).eq("track", data.track).maybeSingle(),
     ]);
     const isAdmin = !!role;
     const active = sub && sub.status === "active" && (!sub.expires_at || new Date(sub.expires_at) > new Date());
     if (!isAdmin && !active) throw new Error("Assinatura não está ativa.");
+    if (!isAdmin && !access) throw new Error("Esta linguagem não está liberada no seu plano.");
 
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("LOVABLE_API_KEY ausente.");
