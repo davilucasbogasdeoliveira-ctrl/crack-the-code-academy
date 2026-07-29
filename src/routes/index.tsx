@@ -115,8 +115,8 @@ function Landing() {
           <div className="mt-8 grid gap-6 md:grid-cols-3 text-left">
             {[
               ["1. Crie sua conta", "Cadastro rápido com email ou Google. Status inicial: aguardando liberação."],
-              ["2. Fale comigo no WhatsApp", "Combinamos o plano (Mensal ou Vitalício) e a forma de pagamento por lá."],
-              ["3. Libero seu acesso", "Assim que confirmar o pagamento, seu acesso é liberado na hora."],
+              ["2. Fale comigo no WhatsApp", "Escolha as linguagens que quer (plano vitalício por linguagem) e combinamos o pagamento."],
+              ["3. Libero seu acesso", "Assim que confirmar o pagamento, libero as linguagens escolhidas na hora."],
             ].map(([t, d]) => (
               <div key={t} className="rounded-lg bg-card/60 p-6 border border-border">
                 <div className="font-mono text-sm text-primary">{t}</div>
