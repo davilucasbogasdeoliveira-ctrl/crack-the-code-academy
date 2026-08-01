@@ -12,12 +12,27 @@ const Input = z.object({
   track: z.enum(["python", "cpp", "html", "css", "java"]),
 });
 
+// Limite simples de uso da IA por aluno (melhor esforço, por instância do servidor).
+const RATE_LIMIT = { max: 20, windowMs: 60_000 };
+const hits = new Map<string, number[]>();
+
+function checkRateLimit(userId: string) {
+  const now = Date.now();
+  const recent = (hits.get(userId) ?? []).filter((t) => now - t < RATE_LIMIT.windowMs);
+  if (recent.length >= RATE_LIMIT.max) {
+    throw new Error("Muitas correções seguidas. Aguarde um minuto e tente de novo.");
+  }
+  recent.push(now);
+  hits.set(userId, recent);
+}
+
 export const evaluateExercise = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => Input.parse(data))
   .handler(async ({ data, context }) => {
     // Verifica assinatura ativa (vitalícia) + linguagem liberada, ou admin
     const { supabase, userId } = context;
+    checkRateLimit(userId);
     const [{ data: sub }, { data: role }, { data: access }] = await Promise.all([
       supabase.from("subscriptions").select("status,expires_at").eq("user_id", userId).maybeSingle(),
       supabase.from("user_roles").select("role").eq("user_id", userId).eq("role", "admin").maybeSingle(),
@@ -27,6 +42,7 @@ export const evaluateExercise = createServerFn({ method: "POST" })
     const active = sub && sub.status === "active" && (!sub.expires_at || new Date(sub.expires_at) > new Date());
     if (!isAdmin && !active) throw new Error("Assinatura não está ativa.");
     if (!isAdmin && !access) throw new Error("Esta linguagem não está liberada no seu plano.");
+
 
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("LOVABLE_API_KEY ausente.");
