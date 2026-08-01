@@ -150,6 +150,30 @@ export const MODULES: Module[] = [
       { heading: "Live coding tips", body: "Fale enquanto pensa. Peça esclarecimentos. Comece com solução ingênua, depois otimize. Escreva testes conforme codifica." },
     ]),
 
+  py("py-13", 13, "Panorama: as principais linguagens de programação",
+    "Fechamento da trilha Python: o que cada linguagem grande do mercado faz, quando usar e um exemplo curto de cada uma.",
+    "1h",
+    [
+      { heading: "Como usar esta lista", body: "Depois de dominar Python, entender o resto do ecossistema te faz escolher a ferramenta certa. Abaixo, cada linguagem com: para que serve, onde brilha e um 'Olá, mundo' funcional para você comparar a sintaxe." },
+      { heading: "Python — automação, dados e IA", body: "Sintaxe curta, tipagem dinâmica, ecossistema gigante (pandas, PyTorch, Django, FastAPI). Usada em ciência de dados, IA, scripts, back-end e automação. Ponto fraco: velocidade bruta e o GIL.", code: { lang: "python", source: `nomes = ["Ana", "Davi"]\nfor n in nomes:\n    print(f"Olá, {n}!")` } },
+      { heading: "C — sistemas e hardware", body: "Baixo nível, controle total de memória, sem coletor de lixo. Base de sistemas operacionais, drivers, embarcados e do próprio Python (CPython). Ponto fraco: fácil errar com ponteiros.", code: { lang: "c", source: `#include <stdio.h>\n\nint main(void) {\n    printf("Olá, mundo!\\n");\n    return 0;\n}` } },
+      { heading: "C++ — performance com abstração", body: "C com orientação a objetos, templates e STL. Jogos (Unreal), engines gráficas, alta frequência financeira, sistemas críticos. Ponto fraco: linguagem enorme e complexa.", code: { lang: "cpp", source: `#include <iostream>\n\nint main() {\n    std::cout << "Olá, mundo!\\n";\n}` } },
+      { heading: "Java — sistemas corporativos", body: "Roda na JVM ('escreva uma vez, rode em qualquer lugar'), tipagem estática, ecossistema maduro (Spring). Bancos, ERPs, back-ends grandes e Android. Ponto fraco: verbosidade.", code: { lang: "java", source: `public class Main {\n    public static void main(String[] args) {\n        System.out.println("Olá, mundo!");\n    }\n}` } },
+      { heading: "JavaScript — a linguagem da web", body: "Única linguagem que roda nativamente no navegador; no servidor via Node.js. Sites, apps (React), APIs, apps de desktop e mobile. Ponto fraco: tipagem frouxa e comportamentos estranhos de conversão.", code: { lang: "javascript", source: `const nomes = ["Ana", "Davi"];\nnomes.forEach((n) => console.log(\`Olá, \${n}!\`));` } },
+      { heading: "TypeScript — JavaScript com tipos", body: "Superset do JavaScript que adiciona tipagem estática e é compilado para JS. Padrão em projetos web médios/grandes porque pega erros antes de rodar.", code: { lang: "typescript", source: `function saudar(nome: string): string {\n  return \`Olá, \${nome}!\`;\n}\nconsole.log(saudar("Davi"));` } },
+      { heading: "HTML — a estrutura das páginas", body: "Não é linguagem de programação, e sim de marcação: define o conteúdo e a semântica da página (títulos, parágrafos, formulários, imagens).", code: { lang: "html", source: `<!DOCTYPE html>\n<html lang="pt-BR">\n  <body>\n    <h1>Olá, mundo!</h1>\n  </body>\n</html>` } },
+      { heading: "CSS — a aparência das páginas", body: "Linguagem de estilo: cores, espaçamento, tipografia, layout (flexbox/grid) e responsividade. Trabalha sempre junto do HTML.", code: { lang: "css", source: `h1 {\n  color: #22c55e;\n  font-family: system-ui, sans-serif;\n  text-align: center;\n}` } },
+      { heading: "SQL — conversar com o banco de dados", body: "Linguagem declarativa para consultar e alterar dados relacionais (PostgreSQL, MySQL, SQLite). Você diz o QUE quer, o banco decide COMO buscar.", code: { lang: "sql", source: `SELECT nome, email\nFROM alunos\nWHERE ativo = true\nORDER BY nome;` } },
+      { heading: "C# — Microsoft, jogos e back-end", body: "Parecida com Java, roda no .NET. Muito usada em sistemas corporativos Windows, APIs e jogos com a engine Unity.", code: { lang: "csharp", source: `using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine("Olá, mundo!");\n    }\n}` } },
+      { heading: "Go — serviços de rede simples e rápidos", body: "Criada no Google: compila rápido, gera um binário único e tem concorrência fácil (goroutines). Ideal para microserviços, CLIs e infraestrutura (Docker e Kubernetes são em Go).", code: { lang: "go", source: `package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Olá, mundo!")\n}` } },
+      { heading: "Rust — segurança de memória sem coletor de lixo", body: "Performance de C/C++ com o compilador impedindo erros de memória. Usada em sistemas, navegadores, WebAssembly e ferramentas modernas. Ponto fraco: curva de aprendizado.", code: { lang: "rust", source: `fn main() {\n    println!("Olá, mundo!");\n}` } },
+      { heading: "Kotlin e Swift — mobile", body: "Kotlin é a linguagem oficial do Android (roda na JVM, mais concisa que Java). Swift é a da Apple (iOS, macOS). Ambas modernas, com null-safety.", code: { lang: "kotlin", source: `fun main() {\n    println("Olá, mundo!")  // Kotlin (Android)\n}\n\n// Swift (iOS):\n// print("Olá, mundo!")` } },
+      { heading: "PHP e Ruby — web clássica", body: "PHP roda boa parte da web (WordPress, Laravel). Ruby, com o framework Rails, é famosa por produtividade em startups. Ótimas para tirar um site do papel rápido.", code: { lang: "php", source: `<?php\necho "Olá, mundo!";\n\n# Ruby:\n# puts "Olá, mundo!"` } },
+      { heading: "Resumo para escolher", body: "Web (front) → HTML + CSS + JS/TS. Back-end → Python, Java, C#, Go ou Node. Dados/IA → Python + SQL. Sistemas e jogos → C, C++ ou Rust. Mobile → Kotlin (Android) e Swift (iOS). Não existe 'melhor linguagem': existe a certa para o problema. Aprender uma bem (como você fez com Python) faz as outras virarem detalhe de sintaxe." },
+    ]),
+
+
+
   // ---------- C/C++ ----------
   cpp("cpp-01", 1, "Modelo de compilação",
     "Pré-processador, compilador, assembler, linker — o que cada etapa faz e como debugar cada uma.",
