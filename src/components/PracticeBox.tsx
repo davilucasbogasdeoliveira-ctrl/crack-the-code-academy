@@ -3,8 +3,15 @@ import { useServerFn } from "@tanstack/react-start";
 import { evaluateExercise } from "@/lib/exercises.functions";
 import type { Module } from "@/content/modules";
 import { getPractice } from "@/content/practices";
+import { CodeEditor } from "@/components/CodeEditor";
 
-export function PracticeBox({ mod }: { mod: Module }) {
+export function PracticeBox({
+  mod,
+  onSubmit,
+}: {
+  mod: Module;
+  onSubmit?: () => void;
+}) {
   const practice = getPractice(mod);
   const [code, setCode] = useState(practice.starter);
   const [loading, setLoading] = useState(false);
@@ -19,6 +26,7 @@ export function PracticeBox({ mod }: { mod: Module }) {
     try {
       const res = await evalFn({
         data: {
+          moduleId: mod.id,
           moduleTitle: mod.title,
           moduleSummary: mod.summary,
           language: practice.language,
@@ -28,6 +36,7 @@ export function PracticeBox({ mod }: { mod: Module }) {
         },
       });
       setFeedback(res.feedback);
+      onSubmit?.();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Erro ao avaliar.");
     } finally {
@@ -46,19 +55,13 @@ export function PracticeBox({ mod }: { mod: Module }) {
       </p>
 
       <div className="mt-4 rounded-md border border-border bg-background/60 p-4">
-        <p className="text-sm text-foreground/90 whitespace-pre-wrap">{practice.prompt}</p>
+        <p className="text-sm whitespace-pre-wrap text-foreground/90">{practice.prompt}</p>
       </div>
 
       <label className="mt-4 block text-xs font-mono uppercase text-muted-foreground">
         Seu código ({practice.language})
       </label>
-      <textarea
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        spellCheck={false}
-        rows={12}
-        className="mt-2 w-full rounded-md border border-border bg-background p-3 font-mono text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
-      />
+      <CodeEditor value={code} onChange={setCode} language={practice.language} rows={12} />
 
       <div className="mt-3 flex items-center gap-3">
         <button
@@ -69,7 +72,11 @@ export function PracticeBox({ mod }: { mod: Module }) {
           {loading ? "Avaliando…" : "Verificar minha resposta"}
         </button>
         <button
-          onClick={() => { setCode(practice.starter); setFeedback(null); setError(null); }}
+          onClick={() => {
+            setCode(practice.starter);
+            setFeedback(null);
+            setError(null);
+          }}
           className="rounded-md border border-border px-3 py-2 text-xs hover:bg-accent"
         >
           Limpar
@@ -85,9 +92,10 @@ export function PracticeBox({ mod }: { mod: Module }) {
       {feedback && (
         <div className="mt-4 rounded-md border border-border bg-background/60 p-4">
           <div className="mb-2 text-xs font-mono uppercase text-muted-foreground">Feedback do professor</div>
-          <div className="whitespace-pre-wrap text-sm text-foreground/90 leading-relaxed">{feedback}</div>
+          <div className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">{feedback}</div>
         </div>
       )}
     </section>
   );
 }
+
