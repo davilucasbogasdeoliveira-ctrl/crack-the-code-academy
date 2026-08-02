@@ -4,6 +4,7 @@ import { generateText } from "ai";
 import { z } from "zod";
 
 const Input = z.object({
+  moduleId: z.string().min(1).max(80),
   moduleTitle: z.string().min(1).max(200),
   moduleSummary: z.string().max(1000),
   language: z.string().min(1).max(30),
@@ -43,6 +44,23 @@ export const evaluateExercise = createServerFn({ method: "POST" })
     if (!isAdmin && !active) throw new Error("Assinatura não está ativa.");
     if (!isAdmin && !access) throw new Error("Esta linguagem não está liberada no seu plano.");
 
+    // Incrementa contador de prática do aluno neste módulo
+    const { data: existing } = await supabase
+      .from("progress")
+      .select("id,practice_count")
+      .eq("user_id", userId)
+      .eq("module_id", data.moduleId)
+      .maybeSingle();
+    if (existing) {
+      await supabase.from("progress").update({ practice_count: existing.practice_count + 1 }).eq("id", existing.id);
+    } else {
+      await supabase.from("progress").insert({
+        user_id: userId,
+        module_id: data.moduleId,
+        track: data.track,
+        practice_count: 1,
+      });
+    }
 
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("LOVABLE_API_KEY ausente.");
@@ -89,3 +107,4 @@ ${data.userCode || "(vazio)"}
     });
     return { feedback: text };
   });
+

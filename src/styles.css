@@ -126,3 +126,80 @@
   background-clip: text;
   color: transparent;
 }
+
+/* Prism theme for the code editor */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: var(--color-foreground);
+  text-shadow: none;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  tab-size: 2;
+  hyphens: none;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: oklch(0.62 0.03 255);
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: var(--color-muted-foreground);
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--color-python);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--color-success);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: var(--color-warning);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: var(--color-primary);
+}
+
+.token.function,
+.token.class-name {
+  color: var(--color-cpp);
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--color-html);
+}
+

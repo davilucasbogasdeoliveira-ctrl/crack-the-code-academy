@@ -3,6 +3,8 @@ import { findModule, MODULES, trackLabel } from "@/content/modules";
 import { PracticeBox } from "@/components/PracticeBox";
 import { moduleVideos, moduleStudyGuide } from "@/content/extras";
 import { useAccess } from "@/lib/access";
+import { useProgress, moduleProgress } from "@/lib/progress";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/curso/$moduleId")({
   loader: ({ params }) => {
@@ -17,8 +19,12 @@ function ModulePage() {
   const { module: mod } = Route.useLoaderData();
   const { user } = Route.useRouteContext();
   const { loading, tracks } = useAccess(user.id, user.email);
+  const { rows: progressRows, loading: progressLoading, upsert } = useProgress(user.id);
+  const row = moduleProgress(progressRows, mod.id);
+  const [saving, setSaving] = useState(false);
+  const [notes, setNotes] = useState(row?.notes ?? "");
 
-  if (loading)
+  if (loading || progressLoading)
     return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Verificando acesso…</div>;
 
   if (!tracks.includes(mod.track))
@@ -40,6 +46,18 @@ function ModulePage() {
   const videos = moduleVideos(mod);
   const guide = moduleStudyGuide(mod);
 
+  async function markComplete() {
+    setSaving(true);
+    await upsert(mod.id, { completed: true, completed_at: new Date().toISOString() });
+    setSaving(false);
+  }
+
+  async function saveNotes() {
+    setSaving(true);
+    await upsert(mod.id, { notes });
+    setSaving(false);
+  }
+
   return (
     <div className="mx-auto max-w-4xl px-6 py-12">
       <Link to="/curso" className="text-sm text-muted-foreground hover:text-foreground">← Voltar aos módulos</Link>
@@ -54,9 +72,24 @@ function ModulePage() {
       <h1 className="mt-3 text-4xl font-bold">{mod.title}</h1>
       <p className="mt-3 text-lg text-muted-foreground">{mod.summary}</p>
 
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <button
+          onClick={markComplete}
+          disabled={row?.completed || saving}
+          className="inline-flex items-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-medium text-success-foreground hover:opacity-90 disabled:opacity-60"
+        >
+          {row?.completed ? "✓ Módulo concluído" : "Marcar como concluído"}
+        </button>
+        {row?.practice_count ? (
+          <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-mono text-primary">
+            {row.practice_count} prática{row.practice_count > 1 ? "s" : ""}
+          </span>
+        ) : null}
+      </div>
+
       <div className="mt-8 rounded-xl border border-border bg-card/50 p-6">
         <h2 className="font-mono text-sm text-primary">// como estudar este módulo</h2>
-        <p className="mt-2 text-foreground/90 leading-relaxed">{guide.howToStudy}</p>
+        <p className="mt-2 leading-relaxed text-foreground/90">{guide.howToStudy}</p>
       </div>
 
       <div className="mt-10 space-y-10">
@@ -66,7 +99,7 @@ function ModulePage() {
               <span className={`font-mono text-sm text-${mod.track}`}>§{i + 1}</span>
               {s.heading}
             </h2>
-            {s.body && <p className="text-foreground/90 leading-relaxed">{s.body}</p>}
+            {s.body && <p className="leading-relaxed text-foreground/90">{s.body}</p>}
             {s.code && (
               <pre className="mt-3"><code className={`language-${s.code.lang}`}>{s.code.source}</code></pre>
             )}
@@ -83,7 +116,7 @@ function ModulePage() {
         </ul>
       </section>
 
-      <PracticeBox mod={mod} />
+      <PracticeBox mod={mod} onSubmit={() => upsert(mod.id, {})} />
 
       <section className="mt-12 rounded-xl border border-border bg-card/50 p-6">
         <h2 className="text-xl font-bold">🎥 Aulas em vídeo para reforçar</h2>
@@ -110,6 +143,27 @@ function ModulePage() {
         </ul>
       </section>
 
+      <section className="mt-8 rounded-xl border border-border bg-card/50 p-6">
+        <h2 className="text-xl font-bold">📝 Minhas anotações</h2>
+        <p className="mt-1 text-sm text-muted-foreground">Salve observações ou dúvidas particulares deste módulo.</p>
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          rows={5}
+          className="mt-3 w-full rounded-md border border-border bg-background p-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
+          placeholder="Ex: preciso revisar laço while, link do vídeo que me ajudou..."
+        />
+        <div className="mt-3 flex justify-end">
+          <button
+            onClick={saveNotes}
+            disabled={saving}
+            className="rounded-md border border-border bg-background px-4 py-2 text-sm hover:bg-accent disabled:opacity-50"
+          >
+            {saving ? "Salvando…" : "Salvar anotações"}
+          </button>
+        </div>
+      </section>
+
       <div className="mt-16 flex items-center justify-between border-t border-border pt-6">
         {prev ? (
           <Link to="/curso/$moduleId" params={{ moduleId: prev.id }} className="text-sm hover:text-primary">
@@ -117,7 +171,7 @@ function ModulePage() {
           </Link>
         ) : <span />}
         {next ? (
-          <Link to="/curso/$moduleId" params={{ moduleId: next.id }} className="text-sm text-right hover:text-primary">
+          <Link to="/curso/$moduleId" params={{ moduleId: next.id }} className="text-right text-sm hover:text-primary">
             {String(next.index).padStart(2, "0")}. {next.title} →
           </Link>
         ) : <span />}

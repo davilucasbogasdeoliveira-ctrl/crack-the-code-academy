@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { TRACKS, modulesByTrack, type Track } from "@/content/modules";
 import { useAccess, type SubRow } from "@/lib/access";
+import { useProgress, trackProgress } from "@/lib/progress";
 
 export const Route = createFileRoute("/_authenticated/curso/")({ component: CursoIndex });
 
@@ -11,8 +12,9 @@ const WHATSAPP_LINK = `https://wa.me/5514998422445?text=${encodeURIComponent(
 function CursoIndex() {
   const { user } = Route.useRouteContext();
   const { loading, isAdmin, sub, active, tracks } = useAccess(user.id, user.email);
+  const { rows: progressRows, loading: progressLoading } = useProgress(user.id);
 
-  if (loading)
+  if (loading || progressLoading)
     return <div className="mx-auto max-w-6xl px-6 py-16 text-center text-muted-foreground">Carregando…</div>;
 
   if (!active) return <LockedScreen sub={sub} email={user.email!} />;
@@ -49,7 +51,7 @@ function CursoIndex() {
       ) : (
         <div className="grid gap-10 lg:grid-cols-2">
           {unlocked.map((t) => (
-            <TrackList key={t.id} track={t.id} title={t.name} modules={modulesByTrack(t.id)} />
+            <TrackList key={t.id} track={t.id} title={t.name} modules={modulesByTrack(t.id)} progressRows={progressRows} />
           ))}
         </div>
       )}
@@ -81,24 +83,51 @@ function CursoIndex() {
   );
 }
 
-function TrackList({ track, title, modules }: { track: Track; title: string; modules: ReturnType<typeof modulesByTrack> }) {
+function TrackList({
+  track,
+  title,
+  modules,
+  progressRows,
+}: {
+  track: Track;
+  title: string;
+  modules: ReturnType<typeof modulesByTrack>;
+  progressRows: ReturnType<typeof useProgress>["rows"];
+}) {
+  const { completed, total, percent } = trackProgress(progressRows, track);
   return (
     <section>
-      <h2 className={`mb-4 font-mono text-2xl font-bold text-${track}`}>{title}</h2>
+      <div className="mb-4 flex items-end justify-between">
+        <h2 className={`font-mono text-2xl font-bold text-${track}`}>{title}</h2>
+        <span className="font-mono text-xs text-muted-foreground">{completed}/{total} concluídos</span>
+      </div>
+      <div className="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-border">
+        <div className={`h-full bg-${track} transition-all duration-500`} style={{ width: `${percent}%` }} />
+      </div>
       <div className="space-y-2">
-        {modules.map((m) => (
-          <Link key={m.id} to="/curso/$moduleId" params={{ moduleId: m.id }}
-            className="block rounded-lg border border-border bg-card/60 p-4 hover:border-primary hover:bg-card transition">
-            <div className="flex items-baseline justify-between">
-              <div className="flex items-baseline gap-3">
-                <span className={`font-mono text-sm text-${track}`}>{String(m.index).padStart(2, "0")}</span>
-                <h3 className="font-semibold">{m.title}</h3>
+        {modules.map((m) => {
+          const row = progressRows.find((r) => r.module_id === m.id);
+          const done = row?.completed;
+          return (
+            <Link key={m.id} to="/curso/$moduleId" params={{ moduleId: m.id }}
+              className="block rounded-lg border border-border bg-card/60 p-4 transition hover:border-primary hover:bg-card">
+              <div className="flex items-baseline justify-between">
+                <div className="flex items-baseline gap-3">
+                  <span className={`font-mono text-sm text-${track}`}>{String(m.index).padStart(2, "0")}</span>
+                  <h3 className="font-semibold">{m.title}</h3>
+                </div>
+                <span className="font-mono text-xs text-muted-foreground">{m.duration}</span>
               </div>
-              <span className="font-mono text-xs text-muted-foreground">{m.duration}</span>
-            </div>
-            <p className="mt-1 ml-9 text-sm text-muted-foreground">{m.summary}</p>
-          </Link>
-        ))}
+              <div className="mt-1 ml-9 flex items-center gap-2">
+                <p className="text-sm text-muted-foreground">{m.summary}</p>
+                {done && <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs text-success">✓ concluído</span>}
+                {row && row.practice_count > 0 && !done && (
+                  <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">{row.practice_count} prática{row.practice_count > 1 ? "s" : ""}</span>
+                )}
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );
@@ -144,3 +173,4 @@ function LockedScreen({ sub, email }: { sub: SubRow | null; email: string }) {
     </div>
   );
 }
+
