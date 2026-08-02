@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ComprarRouteImport } from './routes/comprar'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -16,6 +17,11 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedCursoIndexRouteImport } from './routes/_authenticated/curso.index'
 import { Route as AuthenticatedCursoModuleIdRouteImport } from './routes/_authenticated/curso.$moduleId'
 
+const ComprarRoute = ComprarRouteImport.update({
+  id: '/comprar',
+  path: '/comprar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -50,6 +56,7 @@ const AuthenticatedCursoModuleIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/comprar': typeof ComprarRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
   '/curso/': typeof AuthenticatedCursoIndexRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/comprar': typeof ComprarRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
   '/curso': typeof AuthenticatedCursoIndexRoute
@@ -66,20 +74,28 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/comprar': typeof ComprarRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
   '/_authenticated/curso/': typeof AuthenticatedCursoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/admin' | '/curso/$moduleId' | '/curso/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/comprar'
+    | '/admin'
+    | '/curso/$moduleId'
+    | '/curso/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/admin' | '/curso/$moduleId' | '/curso'
+  to: '/' | '/auth' | '/comprar' | '/admin' | '/curso/$moduleId' | '/curso'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/comprar'
     | '/_authenticated/admin'
     | '/_authenticated/curso/$moduleId'
     | '/_authenticated/curso/'
@@ -89,10 +105,18 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  ComprarRoute: typeof ComprarRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/comprar': {
+      id: '/comprar'
+      path: '/comprar'
+      fullPath: '/comprar'
+      preLoaderRoute: typeof ComprarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -157,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  ComprarRoute: ComprarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

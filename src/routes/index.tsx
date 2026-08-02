@@ -25,6 +25,7 @@ function Landing() {
           <span>CrackDev<span className="text-primary">.</span></span>
         </div>
         <nav className="flex items-center gap-3 text-sm">
+          <Link to="/comprar" className="text-muted-foreground hover:text-foreground">Comprar curso</Link>
           {signedIn ? (
             <Link to="/curso" className="rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground hover:opacity-90">Entrar no curso</Link>
           ) : (
@@ -34,6 +35,7 @@ function Landing() {
             </>
           )}
         </nav>
+
       </header>
 
       <main className="mx-auto max-w-6xl px-6">
@@ -58,17 +60,18 @@ function Landing() {
             projetos reais e preparação para entrevistas técnicas. Sem enrolação, sem "hello world" de 3 horas.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Link to="/auth" search={{ mode: "signup" }} className="rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground hover:opacity-90">
-              Criar conta e solicitar acesso →
+            <Link to="/comprar" className="rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground hover:opacity-90">
+              Comprar curso →
             </Link>
             <a href="#curriculo" className="rounded-md border border-border px-6 py-3 font-semibold hover:bg-accent">
               Ver o que você vai aprender
             </a>
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
-            Plano vitalício por linguagem • Acesso liberado manualmente após confirmação do pagamento
+            R$ 40 a primeira linguagem • R$ 15 cada linguagem extra • acesso vitalício
           </p>
         </section>
+
 
         <section id="curriculo" className="grid gap-6 py-16 md:grid-cols-2 lg:grid-cols-3">
           {TRACKS.map((t) => (
@@ -80,8 +83,9 @@ function Landing() {
           <div className="text-center">
             <h2 className="text-3xl font-bold">Escolha sua linguagem</h2>
             <p className="mt-2 text-muted-foreground">
-              Cada linguagem é vendida separadamente, com <span className="text-primary font-semibold">acesso vitalício</span>.
-              Pode levar mais de uma. Combine o valor comigo pelo WhatsApp.
+              <span className="text-primary font-semibold">R$ 40</span> a primeira linguagem e{" "}
+              <span className="text-primary font-semibold">R$ 15</span> cada linguagem extra — pagamento
+              único, acesso vitalício.
             </p>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -94,19 +98,18 @@ function Landing() {
                   <li className="flex gap-2"><span className="text-primary">✓</span> {modulesByTrack(t.id).length} módulos aprofundados</li>
                   <li className="flex gap-2"><span className="text-primary">✓</span> Exercícios com correção automática</li>
                   <li className="flex gap-2"><span className="text-primary">✓</span> Aulas em vídeo indicadas em cada módulo</li>
-                  <li className="flex gap-2"><span className="text-primary">✓</span> Pagamento único, acesso para sempre</li>
+                  <li className="flex gap-2"><span className="text-primary">✓</span> R$ 40 sozinha • R$ 15 junto com outra</li>
                 </ul>
-                <a
-                  href={`https://wa.me/55${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                    `Olá! Quero o plano vitalício de ${t.name} no CrackDev.`,
-                  )}`}
-                  target="_blank" rel="noopener noreferrer"
+                <Link
+                  to="/comprar"
                   className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 font-semibold text-primary-foreground hover:opacity-90">
-                  <WhatsAppIcon /> Quero {t.name}
-                </a>
+                  Quero {t.name} →
+                </Link>
               </div>
             ))}
           </div>
+
+
         </section>
 
 
