@@ -60,17 +60,18 @@ function Landing() {
             projetos reais e preparação para entrevistas técnicas. Sem enrolação, sem "hello world" de 3 horas.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Link to="/auth" search={{ mode: "signup" }} className="rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground hover:opacity-90">
-              Criar conta e solicitar acesso →
+            <Link to="/comprar" className="rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground hover:opacity-90">
+              Comprar curso →
             </Link>
             <a href="#curriculo" className="rounded-md border border-border px-6 py-3 font-semibold hover:bg-accent">
               Ver o que você vai aprender
             </a>
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
-            Plano vitalício por linguagem • Acesso liberado manualmente após confirmação do pagamento
+            R$ 40 a primeira linguagem • R$ 15 cada linguagem extra • acesso vitalício
           </p>
         </section>
+
 
         <section id="curriculo" className="grid gap-6 py-16 md:grid-cols-2 lg:grid-cols-3">
           {TRACKS.map((t) => (
