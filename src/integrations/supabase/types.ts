@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      progress: {
+        Row: {
+          completed: boolean
+          completed_at: string | null
+          id: string
+          module_id: string
+          notes: string | null
+          practice_count: number
+          track: Database["public"]["Enums"]["course_track"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          completed_at?: string | null
+          id?: string
+          module_id: string
+          notes?: string | null
+          practice_count?: number
+          track: Database["public"]["Enums"]["course_track"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          completed_at?: string | null
+          id?: string
+          module_id?: string
+          notes?: string | null
+          practice_count?: number
+          track?: Database["public"]["Enums"]["course_track"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       subscriptions: {
         Row: {
           created_at: string
