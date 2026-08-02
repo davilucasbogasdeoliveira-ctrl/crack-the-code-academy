@@ -25,6 +25,7 @@ function Landing() {
           <span>CrackDev<span className="text-primary">.</span></span>
         </div>
         <nav className="flex items-center gap-3 text-sm">
+          <Link to="/comprar" className="text-muted-foreground hover:text-foreground">Comprar curso</Link>
           {signedIn ? (
             <Link to="/curso" className="rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground hover:opacity-90">Entrar no curso</Link>
           ) : (
@@ -34,6 +35,7 @@ function Landing() {
             </>
           )}
         </nav>
+
       </header>
 
       <main className="mx-auto max-w-6xl px-6">
