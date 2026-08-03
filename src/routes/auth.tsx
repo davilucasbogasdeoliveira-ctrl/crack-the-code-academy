@@ -95,10 +95,18 @@ function AuthPage() {
                 className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring" />
             </div>
             <div>
-              <label className="text-xs font-mono text-muted-foreground">senha</label>
+              <div className="flex items-baseline justify-between">
+                <label className="text-xs font-mono text-muted-foreground">senha</label>
+                {mode === "login" && (
+                  <button type="button" onClick={onForgot} className="text-xs text-primary hover:underline">
+                    Esqueci minha senha
+                  </button>
+                )}
+              </div>
               <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)}
                 className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring" />
             </div>
+
             {error && <p className="text-sm text-destructive">{error}</p>}
             {info && <p className="text-sm text-success">{info}</p>}
             <button disabled={loading} type="submit" className="w-full rounded-md bg-primary py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 disabled:opacity-50">
