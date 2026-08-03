@@ -54,6 +54,19 @@ function AuthPage() {
     navigate({ to: "/curso" });
   }
 
+  async function onForgot() {
+    setError(null); setInfo(null);
+    if (!email) { setError("Digite seu email no campo acima para receber o link de redefinição."); return; }
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + "/reset-password",
+    });
+    setLoading(false);
+    if (error) { setError(error.message); return; }
+    setInfo("Enviamos um link para " + email + ". Abra o email e clique para criar uma senha nova.");
+  }
+
+
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md">
