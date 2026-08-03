@@ -9,6 +9,16 @@ import "prismjs/components/prism-css";
 import "prismjs/components/prism-java";
 import "prismjs/components/prism-javascript";
 
+type EditorComponent = (typeof CodeEditorModule)["default"];
+const mod = CodeEditorModule as unknown as {
+  default: EditorComponent | { default: EditorComponent };
+};
+const Editor = (
+  typeof mod.default === "function" ? mod.default : (mod.default as { default: EditorComponent }).default
+) as EditorComponent;
+
+
+
 const LANG_MAP: Record<string, string> = {
   python: "python",
   cpp: "cpp",
