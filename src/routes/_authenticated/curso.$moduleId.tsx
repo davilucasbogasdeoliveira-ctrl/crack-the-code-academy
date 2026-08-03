@@ -26,6 +26,20 @@ function ModulePage() {
   const row = moduleProgress(progressRows, mod.id);
   const [saving, setSaving] = useState(false);
   const [notes, setNotes] = useState(row?.notes ?? "");
+  const [focusOn, setFocus] = useState(false);
+  const [step, setStep] = useState(0);
+  const focus = focusOn;
+
+  useEffect(() => {
+    setFocus(localStorage.getItem("crackdev-focus") === "1");
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("crackdev-focus", focusOn ? "1" : "0");
+  }, [focusOn]);
+  useEffect(() => {
+    setStep(0);
+  }, [mod.id]);
+
 
   if (loading || progressLoading)
     return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Verificando acesso…</div>;
