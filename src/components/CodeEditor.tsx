@@ -69,7 +69,7 @@ export function CodeEditor({
       <Editor
         value={value}
         onValueChange={onChange}
-        highlight={(code) =>
+        highlight={(code: string) =>
           Prism.highlight(code, Prism.languages[prismLang] || Prism.languages.clike, prismLang)
         }
         padding={16}
