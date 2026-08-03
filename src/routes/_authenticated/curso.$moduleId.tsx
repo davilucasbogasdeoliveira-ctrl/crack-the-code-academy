@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { findModule, MODULES, trackLabel } from "@/content/modules";
+import { findModule, MODULES, trackLabel, type Section, type Track } from "@/content/modules";
 import { PracticeBox } from "@/components/PracticeBox";
 import { moduleVideos, moduleStudyGuide } from "@/content/extras";
 import { chunkText, oneLiner, readingMinutes, BREAK_TIPS } from "@/content/simplify";
