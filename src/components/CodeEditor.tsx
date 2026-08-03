@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Editor from "react-simple-code-editor";
+import * as CodeEditorModule from "react-simple-code-editor";
 import Prism from "prismjs";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-c";
