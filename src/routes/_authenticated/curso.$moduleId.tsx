@@ -62,6 +62,9 @@ function ModulePage() {
   const next = idx < sameTrack.length - 1 ? sameTrack[idx + 1] : null;
   const videos = moduleVideos(mod);
   const guide = moduleStudyGuide(mod);
+  const allSections = mod.sections.map((s: Section, i: number) => ({ s, i }));
+  const visibleSections = focus ? allSections.slice(step, step + 1) : allSections;
+
 
   async function markComplete() {
     setSaving(true);
