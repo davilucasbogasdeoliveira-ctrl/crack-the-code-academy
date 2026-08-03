@@ -2,9 +2,12 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { findModule, MODULES, trackLabel } from "@/content/modules";
 import { PracticeBox } from "@/components/PracticeBox";
 import { moduleVideos, moduleStudyGuide } from "@/content/extras";
+import { chunkText, oneLiner, readingMinutes, BREAK_TIPS } from "@/content/simplify";
+import { explainJargon } from "@/content/glossary";
 import { useAccess } from "@/lib/access";
 import { useProgress, moduleProgress } from "@/lib/progress";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 
 export const Route = createFileRoute("/_authenticated/curso/$moduleId")({
   loader: ({ params }) => {
