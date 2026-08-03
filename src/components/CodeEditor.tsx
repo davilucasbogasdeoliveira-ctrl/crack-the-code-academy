@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Editor from "react-simple-code-editor";
+import * as CodeEditorModule from "react-simple-code-editor";
 import Prism from "prismjs";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-c";
@@ -8,6 +8,16 @@ import "prismjs/components/prism-markup";
 import "prismjs/components/prism-css";
 import "prismjs/components/prism-java";
 import "prismjs/components/prism-javascript";
+
+type EditorComponent = (typeof CodeEditorModule)["default"];
+const mod = CodeEditorModule as unknown as {
+  default: EditorComponent | { default: EditorComponent };
+};
+const Editor = (
+  typeof mod.default === "function" ? mod.default : (mod.default as { default: EditorComponent }).default
+) as EditorComponent;
+
+
 
 const LANG_MAP: Record<string, string> = {
   python: "python",
@@ -59,7 +69,7 @@ export function CodeEditor({
       <Editor
         value={value}
         onValueChange={onChange}
-        highlight={(code) =>
+        highlight={(code: string) =>
           Prism.highlight(code, Prism.languages[prismLang] || Prism.languages.clike, prismLang)
         }
         padding={16}
