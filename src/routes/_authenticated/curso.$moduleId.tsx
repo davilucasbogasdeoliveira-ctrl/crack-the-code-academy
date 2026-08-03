@@ -139,7 +139,7 @@ function ModulePage() {
       )}
 
       <div className="mt-10 space-y-10">
-        {visibleSections.map(({ s, i }) => (
+        {visibleSections.map(({ s, i }: { s: Section; i: number }) => (
           <SectionBlock key={i} s={s} i={i} track={mod.track} />
         ))}
       </div>
@@ -241,5 +241,54 @@ function ModulePage() {
         ) : <span />}
       </div>
     </div>
+  );
+}
+
+function SectionBlock({ s, i, track }: { s: Section; i: number; track: Track }) {
+  const parts = s.body ? chunkText(s.body) : [];
+  const jargon = s.body ? explainJargon(s.body) : [];
+  const minutes = s.body ? readingMinutes(s.body) : 1;
+
+  return (
+    <section>
+      <h2 className="mb-2 flex flex-wrap items-baseline gap-3 text-2xl font-bold">
+        <span className={`font-mono text-sm text-${track}`}>§{i + 1}</span>
+        {s.heading}
+        <span className="font-mono text-xs font-normal text-muted-foreground">~{minutes} min de leitura</span>
+      </h2>
+
+      {s.body && (
+        <div className="mb-4 rounded-lg border border-primary/25 bg-primary/5 p-4">
+          <p className="font-mono text-xs uppercase text-primary">em 1 frase</p>
+          <p className="mt-1 text-foreground/90">{oneLiner(s.body)}</p>
+        </div>
+      )}
+
+      <div className="space-y-3">
+        {parts.map((p, k) => (
+          <p key={k} className="text-[1.05rem] leading-8 text-foreground/90">{p}</p>
+        ))}
+      </div>
+
+      {s.code && (
+        <div className="mt-4">
+          <p className="mb-1 font-mono text-xs text-muted-foreground">// digite este código você mesmo, não copie</p>
+          <pre><code className={`language-${s.code.lang}`}>{s.code.source}</code></pre>
+        </div>
+      )}
+
+      {jargon.length > 0 && (
+        <div className="mt-4 rounded-lg border border-border bg-card/50 p-4">
+          <p className="font-mono text-xs uppercase text-muted-foreground">traduzindo o jargão</p>
+          <ul className="mt-2 space-y-1.5 text-sm text-foreground/90">
+            {jargon.map((j) => (
+              <li key={j.term}>
+                <span className="font-mono text-primary">{j.term}</span> — {j.meaning}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
   );
 }
