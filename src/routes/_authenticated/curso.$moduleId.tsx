@@ -95,20 +95,64 @@ function ModulePage() {
         <p className="mt-2 leading-relaxed text-foreground/90">{guide.howToStudy}</p>
       </div>
 
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/30 bg-primary/5 p-4">
+        <div>
+          <p className="font-semibold">🧠 Modo foco</p>
+          <p className="text-sm text-muted-foreground">
+            Mostra <strong>uma parte por vez</strong>, com resumo e pausas. Ideal se você se perde em textos longos.
+          </p>
+        </div>
+        <button
+          onClick={() => { setFocus(!focus); setStep(0); }}
+          className={`rounded-md px-4 py-2 text-sm font-medium ${focus ? "bg-primary text-primary-foreground" : "border border-border bg-background hover:bg-accent"}`}
+        >
+          {focus ? "Modo foco ligado" : "Ligar modo foco"}
+        </button>
+      </div>
+
+      {focus && (
+        <div className="mt-4 flex items-center gap-2">
+          {mod.sections.map((_: unknown, i: number) => (
+            <span key={i} className={`h-1.5 flex-1 rounded-full ${i <= step ? "bg-primary" : "bg-border"}`} />
+          ))}
+          <span className="ml-2 font-mono text-xs text-muted-foreground">
+            {step + 1}/{mod.sections.length}
+          </span>
+        </div>
+      )}
+
       <div className="mt-10 space-y-10">
-        {mod.sections.map((s: typeof mod.sections[number], i: number) => (
-          <section key={i}>
-            <h2 className="mb-3 flex items-baseline gap-3 text-2xl font-bold">
-              <span className={`font-mono text-sm text-${mod.track}`}>§{i + 1}</span>
-              {s.heading}
-            </h2>
-            {s.body && <p className="leading-relaxed text-foreground/90">{s.body}</p>}
-            {s.code && (
-              <pre className="mt-3"><code className={`language-${s.code.lang}`}>{s.code.source}</code></pre>
-            )}
-          </section>
+        {visibleSections.map(({ s, i }) => (
+          <SectionBlock key={i} s={s} i={i} track={mod.track} />
         ))}
       </div>
+
+      {focus && (
+        <div className="mt-8 flex items-center justify-between">
+          <button
+            onClick={() => setStep(Math.max(0, step - 1))}
+            disabled={step === 0}
+            className="rounded-md border border-border bg-background px-4 py-2 text-sm hover:bg-accent disabled:opacity-40"
+          >
+            ← Parte anterior
+          </button>
+          <button
+            onClick={() => setStep(Math.min(mod.sections.length - 1, step + 1))}
+            disabled={step >= mod.sections.length - 1}
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-40"
+          >
+            Entendi, próxima parte →
+          </button>
+        </div>
+      )}
+
+      {focus && (step + 1) % 3 === 0 && step < mod.sections.length - 1 && (
+        <p className="mt-4 rounded-lg border border-border bg-card/50 p-4 text-sm text-muted-foreground">
+          ⏸ {BREAK_TIPS[Math.floor(step / 3) % BREAK_TIPS.length]}
+        </p>
+      )}
+
+
 
       <section className="mt-12 rounded-xl border border-destructive/30 bg-destructive/5 p-6">
         <h2 className="text-xl font-bold">Erros comuns que travam o aluno aqui</h2>
