@@ -6,10 +6,10 @@ export default defineTool({
   name: "list_modules",
   title: "Listar módulos do curso",
   description:
-    "Lista os módulos do curso CrackDev, opcionalmente filtrando por trilha (python, cpp, html, css, java).",
+    "Lista os módulos do curso CrackDev, opcionalmente filtrando por trilha (python, cpp, html, css, java, csharp, javascript, lua).",
   inputSchema: {
     track: z
-      .enum(["python", "cpp", "html", "css", "java"])
+      .enum(["python", "cpp", "html", "css", "java", "csharp", "javascript", "lua"])
       .optional()
       .describe("Trilha para filtrar. Omita para listar todas."),
   },
