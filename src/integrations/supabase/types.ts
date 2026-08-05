@@ -140,7 +140,15 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "student"
-      course_track: "python" | "cpp" | "html" | "css" | "java"
+      course_track:
+        | "python"
+        | "cpp"
+        | "html"
+        | "css"
+        | "java"
+        | "csharp"
+        | "javascript"
+        | "lua"
       subscription_status: "pending" | "active" | "expired" | "blocked"
     }
     CompositeTypes: {
@@ -270,7 +278,16 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "student"],
-      course_track: ["python", "cpp", "html", "css", "java"],
+      course_track: [
+        "python",
+        "cpp",
+        "html",
+        "css",
+        "java",
+        "csharp",
+        "javascript",
+        "lua",
+      ],
       subscription_status: ["pending", "active", "expired", "blocked"],
     },
   },
