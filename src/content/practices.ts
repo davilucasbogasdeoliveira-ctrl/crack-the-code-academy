@@ -6,6 +6,9 @@ const langByTrack: Record<Track, string> = {
   html: "html",
   css: "css",
   java: "java",
+  csharp: "csharp",
+  javascript: "javascript",
+  lua: "lua",
 };
 
 const starterByTrack: Record<Track, string> = {
@@ -14,6 +17,9 @@ const starterByTrack: Record<Track, string> = {
   html: "<!DOCTYPE html>\n<html lang=\"pt-br\">\n<head><meta charset=\"utf-8\"><title>Exercício</title></head>\n<body>\n  <!-- seu código -->\n</body>\n</html>\n",
   css: "/* seu CSS aqui */\n",
   java: "public class Main {\n    public static void main(String[] args) {\n        // seu código\n    }\n}\n",
+  csharp: "using System;\n\nclass Program\n{\n    static void Main()\n    {\n        // seu código\n    }\n}\n",
+  javascript: "// escreva seu código aqui\n",
+  lua: "-- escreva seu código aqui\n",
 };
 
 export function getPractice(mod: Module): { language: string; prompt: string; starter: string } {

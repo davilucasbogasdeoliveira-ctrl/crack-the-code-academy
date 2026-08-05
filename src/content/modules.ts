@@ -1,6 +1,6 @@
 // Conteúdo dos módulos — profundo mas conciso. Cada módulo tem seções.
 export type Section = { heading: string; body: string; code?: { lang: string; source: string } };
-export type Track = "python" | "cpp" | "html" | "css" | "java";
+export type Track = "python" | "cpp" | "html" | "css" | "java" | "csharp" | "javascript" | "lua";
 export type Module = {
   id: string;
   track: Track;
@@ -18,6 +18,8 @@ const cpp = mk("cpp");
 const htm = mk("html");
 const cs = mk("css");
 const jv = mk("java");
+
+import { EXTRA_MODULES } from "./modules-extra";
 
 export const MODULES: Module[] = [
   // ---------- PYTHON ----------
@@ -520,6 +522,7 @@ export const MODULES: Module[] = [
       { heading: "JVM", body: "Como o GC funciona, diferença Xms/Xmx, o que causa OutOfMemoryError, como debugar (heap dump + Eclipse MAT), como perfilar (async-profiler, JFR)." },
       { heading: "System design", body: "Spring transactional propagation, cache (Caffeine, Redis), rate limit (bucket4j), idempotência. Explique trade-offs." },
     ]),
+  ...EXTRA_MODULES,
 ];
 
 export function findModule(id: string) {
@@ -535,6 +538,9 @@ export const TRACKS: { id: Track; name: string; tag: string; blurb: string }[] =
   { id: "java", name: "Java", tag: "java", blurb: "JVM, Java moderno, Spring e virtual threads" },
   { id: "python", name: "Python", tag: "python", blurb: "Internals, concorrência, performance e projetos" },
   { id: "cpp", name: "C / C++", tag: "cpp", blurb: "Memória, RAII, templates, sanitizers e projeto real" },
+  { id: "csharp", name: "C#", tag: "csharp", blurb: ".NET, LINQ, async/await, APIs com ASP.NET Core" },
+  { id: "javascript", name: "JavaScript", tag: "javascript", blurb: "Event loop, DOM, async, módulos e Node.js" },
+  { id: "lua", name: "Lua", tag: "lua", blurb: "Tables, metatables, scripting de jogos e embarcados" },
 ];
 
 export function trackLabel(t: Track) {

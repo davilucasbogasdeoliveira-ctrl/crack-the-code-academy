@@ -19,7 +19,7 @@
       {
         "name": "list_modules",
         "title": "Listar módulos do curso",
-        "description": "Lista os módulos do curso CrackDev, opcionalmente filtrando por trilha (python, cpp, html, css, java).",
+        "description": "Lista os módulos do curso CrackDev, opcionalmente filtrando por trilha (python, cpp, html, css, java, csharp, javascript, lua).",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -37,7 +37,10 @@
                 "cpp",
                 "html",
                 "css",
-                "java"
+                "java",
+                "csharp",
+                "javascript",
+                "lua"
               ]
             }
           }

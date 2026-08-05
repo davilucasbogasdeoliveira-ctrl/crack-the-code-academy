@@ -10,7 +10,7 @@ const Input = z.object({
   language: z.string().min(1).max(30),
   exercisePrompt: z.string().max(4000),
   userCode: z.string().max(20000),
-  track: z.enum(["python", "cpp", "html", "css", "java"]),
+  track: z.enum(["python", "cpp", "html", "css", "java", "csharp", "javascript", "lua"]),
 });
 
 // Limite simples de uso da IA por aluno (melhor esforço, por instância do servidor).

@@ -42,6 +42,9 @@
   --color-html: var(--html);
   --color-css: var(--css);
   --color-java: var(--java);
+  --color-csharp: var(--csharp);
+  --color-javascript: var(--javascript);
+  --color-lua: var(--lua);
 }
 
 :root {
@@ -77,10 +80,13 @@
   --html: oklch(0.75 0.16 45);
   --css: oklch(0.74 0.15 260);
   --java: oklch(0.78 0.16 90);
+  --csharp: oklch(0.72 0.16 310);
+  --javascript: oklch(0.85 0.17 100);
+  --lua: oklch(0.7 0.17 275);
 }
 
 /* Tailwind v4 safelist — mantém classes dinâmicas de track */
-.__safelist { @apply text-python text-cpp text-html text-css text-java bg-python/15 bg-cpp/15 bg-html/15 bg-css/15 bg-java/15 border-python border-cpp border-html border-css border-java; }
+.__safelist { @apply text-python text-cpp text-html text-css text-java text-csharp text-javascript text-lua bg-python/15 bg-cpp/15 bg-html/15 bg-css/15 bg-java/15 bg-csharp/15 bg-javascript/15 bg-lua/15 border-python border-cpp border-html border-css border-java border-csharp border-javascript border-lua; }
 
 @layer base {
   * {
