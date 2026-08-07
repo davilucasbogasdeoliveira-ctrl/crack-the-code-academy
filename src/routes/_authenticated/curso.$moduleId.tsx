@@ -110,9 +110,20 @@ function ModulePage() {
       </div>
 
       <div className="mt-8 rounded-xl border border-border bg-card/50 p-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-mono text-sm text-primary">// prefere ouvir em vez de ler?</h2>
+          <ReadAloud
+            text={`${mod.title}. ${mod.summary}. ${mod.sections.map((s: Section) => `${s.heading}. ${s.body ?? ""}`).join(" ")}`}
+            label="Ouvir o módulo inteiro"
+          />
+        </div>
+      </div>
+
+      <div className="mt-8 rounded-xl border border-border bg-card/50 p-6">
         <h2 className="font-mono text-sm text-primary">// como estudar este módulo</h2>
         <p className="mt-2 leading-relaxed text-foreground/90">{guide.howToStudy}</p>
       </div>
+
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/30 bg-primary/5 p-4">
         <div>
