@@ -19,7 +19,9 @@ export function PracticeBox({
   const [error, setError] = useState<string | null>(null);
   const evalFn = useServerFn(evaluateExercise);
 
-  async function submit() {
+  async function submit(e?: React.MouseEvent<HTMLButtonElement>) {
+    e?.preventDefault();
+    if (loading) return;
     setLoading(true);
     setError(null);
     setFeedback(null);
@@ -35,10 +37,15 @@ export function PracticeBox({
           track: mod.track,
         },
       });
-      setFeedback(res.feedback);
-      onSubmit?.();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Erro ao avaliar.");
+      if (res.ok) {
+        setFeedback(res.feedback);
+        onSubmit?.();
+      } else {
+        setError(res.feedback);
+      }
+    } catch (err) {
+      console.error("[PracticeBox]", err);
+      setError("Não consegui falar com o corretor agora. Verifique sua conexão e tente de novo.");
     } finally {
       setLoading(false);
     }
@@ -65,6 +72,7 @@ export function PracticeBox({
 
       <div className="mt-3 flex items-center gap-3">
         <button
+          type="button"
           onClick={submit}
           disabled={loading}
           className={`rounded-md bg-${mod.track} px-4 py-2 text-sm font-medium text-background hover:opacity-90 disabled:opacity-50`}
@@ -72,7 +80,9 @@ export function PracticeBox({
           {loading ? "Avaliando…" : "Verificar minha resposta"}
         </button>
         <button
-          onClick={() => {
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
             setCode(practice.starter);
             setFeedback(null);
             setError(null);
@@ -82,6 +92,7 @@ export function PracticeBox({
           Limpar
         </button>
       </div>
+
 
       {error && (
         <div className="mt-4 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">

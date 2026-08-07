@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { findModule, MODULES, trackLabel, type Section, type Track } from "@/content/modules";
 import { PracticeBox } from "@/components/PracticeBox";
+import { ReadAloud } from "@/components/ReadAloud";
+
 import { moduleVideos, moduleStudyGuide } from "@/content/extras";
 import { chunkText, oneLiner, readingMinutes, BREAK_TIPS } from "@/content/simplify";
 import { explainJargon } from "@/content/glossary";
@@ -108,9 +110,20 @@ function ModulePage() {
       </div>
 
       <div className="mt-8 rounded-xl border border-border bg-card/50 p-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-mono text-sm text-primary">// prefere ouvir em vez de ler?</h2>
+          <ReadAloud
+            text={`${mod.title}. ${mod.summary}. ${mod.sections.map((s: Section) => `${s.heading}. ${s.body ?? ""}`).join(" ")}`}
+            label="Ouvir o módulo inteiro"
+          />
+        </div>
+      </div>
+
+      <div className="mt-8 rounded-xl border border-border bg-card/50 p-6">
         <h2 className="font-mono text-sm text-primary">// como estudar este módulo</h2>
         <p className="mt-2 leading-relaxed text-foreground/90">{guide.howToStudy}</p>
       </div>
+
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/30 bg-primary/5 p-4">
         <div>
@@ -258,11 +271,18 @@ function SectionBlock({ s, i, track }: { s: Section; i: number; track: Track }) 
       </h2>
 
       {s.body && (
+        <div className="mb-4">
+          <ReadAloud text={`${s.heading}. ${s.body}`} label="Ouvir esta parte" />
+        </div>
+      )}
+
+      {s.body && (
         <div className="mb-4 rounded-lg border border-primary/25 bg-primary/5 p-4">
           <p className="font-mono text-xs uppercase text-primary">em 1 frase</p>
           <p className="mt-1 text-foreground/90">{oneLiner(s.body)}</p>
         </div>
       )}
+
 
       <div className="space-y-3">
         {parts.map((p, k) => (

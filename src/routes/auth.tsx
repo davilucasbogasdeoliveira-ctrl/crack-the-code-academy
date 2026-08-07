@@ -71,7 +71,7 @@ function AuthPage() {
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md">
         <Link to="/" className="mb-8 inline-flex items-center gap-2 font-mono font-bold text-lg">
-          <span className="inline-block h-2 w-2 rounded-full bg-primary" /> CrackDev<span className="text-primary">.</span>
+          <span className="inline-block h-2 w-2 rounded-full bg-primary" /> The Code Academy<span className="text-primary">.</span>
         </Link>
 
         <div className="glass-card rounded-2xl p-8">

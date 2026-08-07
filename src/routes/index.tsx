@@ -7,7 +7,7 @@ export const Route = createFileRoute("/")({ component: Landing });
 
 const WHATSAPP_NUMBER = "14998422445";
 const WHATSAPP_LINK = `https://wa.me/55${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  "Olá! Tenho interesse no curso CrackDev e gostaria de liberar meu acesso.",
+  "Olá! Tenho interesse no curso The Code Academy e gostaria de liberar meu acesso.",
 )}`;
 
 
@@ -22,7 +22,7 @@ function Landing() {
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
         <div className="flex items-center gap-2 font-mono text-lg font-bold">
           <span className="inline-block h-2 w-2 rounded-full bg-primary" />
-          <span>CrackDev<span className="text-primary">.</span></span>
+          <span>The Code Academy<span className="text-primary">.</span></span>
         </div>
         <nav className="flex items-center gap-3 text-sm">
           <Link to="/comprar" className="text-muted-foreground hover:text-foreground">Comprar curso</Link>
@@ -45,16 +45,15 @@ function Landing() {
             Acesso fechado • Turmas limitadas
           </div>
           <h1 className="mt-6 text-5xl font-bold leading-tight md:text-7xl">
-            Vire <span className="gradient-text">crack</span> nas<br />
-            principais linguagens de <span className="gradient-text">programação</span>
+            Domine as <span className="gradient-text">principais</span><br />
+            linguagens de <span className="gradient-text">programação</span>
           </h1>
           <div className="mt-6 flex flex-wrap justify-center gap-3 font-mono text-sm">
-            <span className="rounded-md bg-html/15 px-3 py-1 text-html">HTML</span>
-            <span className="rounded-md bg-css/15 px-3 py-1 text-css">CSS</span>
-            <span className="rounded-md bg-java/15 px-3 py-1 text-java">Java</span>
-            <span className="rounded-md bg-python/15 px-3 py-1 text-python">Python</span>
-            <span className="rounded-md bg-cpp/15 px-3 py-1 text-cpp">C / C++</span>
+            {TRACKS.map((t) => (
+              <span key={t.id} className={`rounded-md bg-${t.id}/15 px-3 py-1 text-${t.id}`}>{t.name}</span>
+            ))}
           </div>
+
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
             Um curso profundo de verdade. Internals de cada linguagem, boas práticas modernas,
             projetos reais e preparação para entrevistas técnicas. Sem enrolação, sem "hello world" de 3 horas.
@@ -141,7 +140,7 @@ function Landing() {
 
         <footer className="border-t border-border py-8 text-center text-xs text-muted-foreground">
           <p>Contato: <a className="hover:text-foreground" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">WhatsApp (14) 99842-2445</a></p>
-          <p className="mt-2">© {new Date().getFullYear()} CrackDev. Todos os direitos reservados.</p>
+          <p className="mt-2">© {new Date().getFullYear()} The Code Academy. Todos os direitos reservados.</p>
         </footer>
       </main>
     </div>
