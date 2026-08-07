@@ -258,11 +258,18 @@ function SectionBlock({ s, i, track }: { s: Section; i: number; track: Track }) 
       </h2>
 
       {s.body && (
+        <div className="mb-4">
+          <ReadAloud text={`${s.heading}. ${s.body}`} label="Ouvir esta parte" />
+        </div>
+      )}
+
+      {s.body && (
         <div className="mb-4 rounded-lg border border-primary/25 bg-primary/5 p-4">
           <p className="font-mono text-xs uppercase text-primary">em 1 frase</p>
           <p className="mt-1 text-foreground/90">{oneLiner(s.body)}</p>
         </div>
       )}
+
 
       <div className="space-y-3">
         {parts.map((p, k) => (
