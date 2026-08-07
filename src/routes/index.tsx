@@ -45,16 +45,15 @@ function Landing() {
             Acesso fechado • Turmas limitadas
           </div>
           <h1 className="mt-6 text-5xl font-bold leading-tight md:text-7xl">
-            Vire <span className="gradient-text">crack</span> nas<br />
-            principais linguagens de <span className="gradient-text">programação</span>
+            Domine as <span className="gradient-text">principais</span><br />
+            linguagens de <span className="gradient-text">programação</span>
           </h1>
           <div className="mt-6 flex flex-wrap justify-center gap-3 font-mono text-sm">
-            <span className="rounded-md bg-html/15 px-3 py-1 text-html">HTML</span>
-            <span className="rounded-md bg-css/15 px-3 py-1 text-css">CSS</span>
-            <span className="rounded-md bg-java/15 px-3 py-1 text-java">Java</span>
-            <span className="rounded-md bg-python/15 px-3 py-1 text-python">Python</span>
-            <span className="rounded-md bg-cpp/15 px-3 py-1 text-cpp">C / C++</span>
+            {TRACKS.map((t) => (
+              <span key={t.id} className={`rounded-md bg-${t.id}/15 px-3 py-1 text-${t.id}`}>{t.name}</span>
+            ))}
           </div>
+
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
             Um curso profundo de verdade. Internals de cada linguagem, boas práticas modernas,
             projetos reais e preparação para entrevistas técnicas. Sem enrolação, sem "hello world" de 3 horas.
