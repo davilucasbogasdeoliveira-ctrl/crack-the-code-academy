@@ -7,7 +7,7 @@ export const Route = createFileRoute("/")({ component: Landing });
 
 const WHATSAPP_NUMBER = "14998422445";
 const WHATSAPP_LINK = `https://wa.me/55${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  "Olá! Tenho interesse no curso CrackDev e gostaria de liberar meu acesso.",
+  "Olá! Tenho interesse no curso The Code Academy e gostaria de liberar meu acesso.",
 )}`;
 
 
@@ -22,7 +22,7 @@ function Landing() {
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
         <div className="flex items-center gap-2 font-mono text-lg font-bold">
           <span className="inline-block h-2 w-2 rounded-full bg-primary" />
-          <span>CrackDev<span className="text-primary">.</span></span>
+          <span>The Code Academy<span className="text-primary">.</span></span>
         </div>
         <nav className="flex items-center gap-3 text-sm">
           <Link to="/comprar" className="text-muted-foreground hover:text-foreground">Comprar curso</Link>
@@ -141,7 +141,7 @@ function Landing() {
 
         <footer className="border-t border-border py-8 text-center text-xs text-muted-foreground">
           <p>Contato: <a className="hover:text-foreground" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">WhatsApp (14) 99842-2445</a></p>
-          <p className="mt-2">© {new Date().getFullYear()} CrackDev. Todos os direitos reservados.</p>
+          <p className="mt-2">© {new Date().getFullYear()} The Code Academy. Todos os direitos reservados.</p>
         </footer>
       </main>
     </div>

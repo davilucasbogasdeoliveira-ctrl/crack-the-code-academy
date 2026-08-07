@@ -6,9 +6,9 @@ export const Route = createFileRoute("/reset-password")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Redefinir senha | CrackDev" },
-      { name: "description", content: "Defina uma nova senha para acessar sua área de aluno na CrackDev." },
-      { property: "og:title", content: "Redefinir senha | CrackDev" },
+      { title: "Redefinir senha | The Code Academy" },
+      { name: "description", content: "Defina uma nova senha para acessar sua área de aluno na The Code Academy." },
+      { property: "og:title", content: "Redefinir senha | The Code Academy" },
       { property: "og:description", content: "Defina uma nova senha para acessar sua área de aluno." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -59,7 +59,7 @@ function ResetPasswordPage() {
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md">
         <Link to="/" className="mb-8 inline-flex items-center gap-2 font-mono font-bold text-lg">
-          <span className="inline-block h-2 w-2 rounded-full bg-primary" /> CrackDev<span className="text-primary">.</span>
+          <span className="inline-block h-2 w-2 rounded-full bg-primary" /> The Code Academy<span className="text-primary">.</span>
         </Link>
 
         <div className="glass-card rounded-2xl p-8">

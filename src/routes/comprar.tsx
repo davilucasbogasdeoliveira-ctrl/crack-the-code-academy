@@ -6,13 +6,13 @@ export const Route = createFileRoute("/comprar")({
   component: Comprar,
   head: () => ({
     meta: [
-      { title: "Comprar curso — CrackDev | R$ 40 a 1ª linguagem" },
+      { title: "Comprar curso — The Code Academy | R$ 40 a 1ª linguagem" },
       {
         name: "description",
         content:
-          "Escolha suas linguagens no CrackDev: R$ 40 a primeira e R$ 15 cada linguagem extra. Acesso vitalício, liberação pelo WhatsApp.",
+          "Escolha suas linguagens no The Code Academy: R$ 40 a primeira e R$ 15 cada linguagem extra. Acesso vitalício, liberação pelo WhatsApp.",
       },
-      { property: "og:title", content: "Comprar curso — CrackDev" },
+      { property: "og:title", content: "Comprar curso — The Code Academy" },
       {
         property: "og:description",
         content: "Monte seu combo de linguagens: R$ 40 a primeira, R$ 15 cada extra. Acesso vitalício.",
@@ -52,7 +52,7 @@ function Comprar() {
 
   const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     [
-      "Olá! Quero comprar o CrackDev 👇",
+      "Olá! Quero comprar o The Code Academy 👇",
       `Linguagens: ${names.join(", ")}`,
       `Total: ${brl(total)} (R$ ${FIRST_PRICE} a 1ª + R$ ${EXTRA_PRICE} cada extra)`,
       name ? `Nome: ${name}` : "",
@@ -67,7 +67,7 @@ function Comprar() {
     <div className="mx-auto max-w-3xl px-6 py-12">
       <div className="mb-8 flex items-center justify-between">
         <Link to="/" className="font-mono text-sm text-muted-foreground hover:text-foreground">
-          ← CrackDev
+          ← The Code Academy
         </Link>
         <span className="font-mono text-xs text-muted-foreground">
           R$ {FIRST_PRICE} a 1ª • R$ {EXTRA_PRICE} cada extra
@@ -83,7 +83,7 @@ function Comprar() {
 
       <div className="glass-card mt-8 rounded-2xl p-6 sm:p-8">
         <Bubble>
-          Oi! Eu sou o <strong>CrackBot</strong> 🤖 — vou te ajudar a montar seu acesso vitalício.
+          Oi! Eu sou o <strong>CodeBot</strong> 🤖 — vou te ajudar a montar seu acesso vitalício.
         </Bubble>
 
         {step === "intro" && (

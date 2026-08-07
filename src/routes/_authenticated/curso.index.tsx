@@ -6,7 +6,7 @@ import { useProgress, trackProgress } from "@/lib/progress";
 export const Route = createFileRoute("/_authenticated/curso/")({ component: CursoIndex });
 
 const WHATSAPP_LINK = `https://wa.me/5514998422445?text=${encodeURIComponent(
-  "Olá! Quero liberar o acesso a uma linguagem do CrackDev.",
+  "Olá! Quero liberar o acesso a uma linguagem do The Code Academy.",
 )}`;
 
 function CursoIndex() {
