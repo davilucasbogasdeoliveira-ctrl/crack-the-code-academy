@@ -86,7 +86,10 @@
 }
 
 /* Tailwind v4 safelist — mantém classes dinâmicas de track */
-.__safelist { @apply text-python text-cpp text-html text-css text-java text-csharp text-javascript text-lua bg-python bg-cpp bg-html bg-css bg-java bg-csharp bg-javascript bg-lua bg-python/15 bg-cpp/15 bg-html/15 bg-css/15 bg-java/15 bg-csharp/15 bg-javascript/15 bg-lua/15 border-python border-cpp border-html border-css border-java border-csharp border-javascript border-lua; }
+@source inline("{text,bg,border,from,to,ring,decoration}-{python,cpp,html,css,java,csharp,javascript,lua}");
+@source inline("bg-{python,cpp,html,css,java,csharp,javascript,lua}/{10,15,20,30}");
+@source inline("border-{python,cpp,html,css,java,csharp,javascript,lua}/{30,40,50}");
+@source inline("{text,bg,border}-{success,warning,destructive,primary}/{10,15,20}");
 
 @layer base {
   * {
