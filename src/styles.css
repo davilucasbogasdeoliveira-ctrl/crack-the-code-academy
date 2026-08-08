@@ -83,7 +83,58 @@
   --csharp: oklch(0.72 0.16 310);
   --javascript: oklch(0.85 0.17 100);
   --lua: oklch(0.7 0.17 275);
+
+  --bg-glow: oklch(0.2 0.04 250);
+  --code-bg: oklch(0.13 0.02 250);
+  --inline-code-bg: oklch(0.24 0.025 255);
+  --glass-a: oklch(0.22 0.03 255 / 0.7);
+  --glass-b: oklch(0.19 0.025 255 / 0.5);
+  --glass-border: oklch(1 0 0 / 0.06);
 }
+
+/* Tema claro (persistido no navegador) */
+.light {
+  --background: oklch(0.99 0.005 250);
+  --foreground: oklch(0.22 0.02 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.02 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.02 255);
+  --primary: oklch(0.58 0.15 155);
+  --primary-foreground: oklch(0.99 0.005 250);
+  --secondary: oklch(0.95 0.01 255);
+  --secondary-foreground: oklch(0.25 0.02 255);
+  --muted: oklch(0.95 0.01 255);
+  --muted-foreground: oklch(0.48 0.02 255);
+  --accent: oklch(0.93 0.02 255);
+  --accent-foreground: oklch(0.25 0.02 255);
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.99 0.005 250);
+  --success: oklch(0.55 0.15 155);
+  --success-foreground: oklch(0.99 0.005 250);
+  --warning: oklch(0.65 0.15 75);
+  --warning-foreground: oklch(0.18 0.02 250);
+  --border: oklch(0.89 0.01 255);
+  --input: oklch(0.89 0.01 255);
+  --ring: oklch(0.58 0.15 155);
+
+  --python: oklch(0.55 0.14 220);
+  --cpp: oklch(0.55 0.18 20);
+  --html: oklch(0.58 0.16 45);
+  --css: oklch(0.55 0.15 260);
+  --java: oklch(0.58 0.14 90);
+  --csharp: oklch(0.55 0.16 310);
+  --javascript: oklch(0.6 0.15 100);
+  --lua: oklch(0.53 0.17 275);
+
+  --bg-glow: oklch(0.96 0.02 250);
+  --code-bg: oklch(0.96 0.01 255);
+  --inline-code-bg: oklch(0.93 0.01 255);
+  --glass-a: oklch(1 0 0 / 0.85);
+  --glass-b: oklch(0.98 0.005 250 / 0.7);
+  --glass-border: oklch(0.2 0.02 255 / 0.08);
+}
+
 
 /* Tailwind v4 safelist — mantém classes dinâmicas de track */
 @source inline("{text,bg,border,from,to,ring,decoration}-{python,cpp,html,css,java,csharp,javascript,lua}");
