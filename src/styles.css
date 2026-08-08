@@ -147,7 +147,7 @@
     border-color: var(--color-border);
   }
   body {
-    background: radial-gradient(ellipse at top, oklch(0.2 0.04 250) 0%, var(--color-background) 60%);
+    background: radial-gradient(ellipse at top, var(--bg-glow) 0%, var(--color-background) 60%);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     min-height: 100vh;
@@ -156,7 +156,7 @@
     font-family: var(--font-mono);
   }
   pre {
-    background: oklch(0.13 0.02 250);
+    background: var(--code-bg);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
     padding: 1rem;
@@ -166,7 +166,7 @@
   }
   pre code { background: transparent; padding: 0; }
   :not(pre) > code {
-    background: oklch(0.24 0.025 255);
+    background: var(--inline-code-bg);
     padding: 0.15em 0.4em;
     border-radius: 4px;
     font-size: 0.9em;
@@ -175,9 +175,9 @@
 }
 
 @utility glass-card {
-  background: linear-gradient(180deg, oklch(0.22 0.03 255 / 0.7), oklch(0.19 0.025 255 / 0.5));
+  background: linear-gradient(180deg, var(--glass-a), var(--glass-b));
   backdrop-filter: blur(10px);
-  border: 1px solid oklch(1 0 0 / 0.06);
+  border: 1px solid var(--glass-border);
 }
 
 @utility gradient-text {
