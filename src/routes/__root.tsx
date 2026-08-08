@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { supabase } from "@/integrations/supabase/client";
+import { themeInitScript } from "@/lib/theme";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 function NotFoundComponent() {
   return (
@@ -76,6 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
+    scripts: [{ children: themeInitScript }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -85,7 +88,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className="dark">
       <head><HeadContent /></head>
       <body>{children}<Scripts /></body>
     </html>
@@ -106,6 +109,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <ThemeToggle className="fixed bottom-4 right-4 z-50 shadow-lg" />
     </QueryClientProvider>
   );
 }
