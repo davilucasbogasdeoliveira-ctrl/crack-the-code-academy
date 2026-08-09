@@ -17,6 +17,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedCursoIndexRouteImport } from './routes/_authenticated/curso.index'
 import { Route as AuthenticatedCursoModuleIdRouteImport } from './routes/_authenticated/curso.$moduleId'
+import { Route as AuthenticatedCertificadoTrackRouteImport } from './routes/_authenticated/certificado.$track'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
@@ -58,6 +59,12 @@ const AuthenticatedCursoModuleIdRoute =
     path: '/curso/$moduleId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCertificadoTrackRoute =
+  AuthenticatedCertificadoTrackRouteImport.update({
+    id: '/certificado/$track',
+    path: '/certificado/$track',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/comprar': typeof ComprarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/certificado/$track': typeof AuthenticatedCertificadoTrackRoute
   '/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
   '/curso/': typeof AuthenticatedCursoIndexRoute
 }
@@ -74,6 +82,7 @@ export interface FileRoutesByTo {
   '/comprar': typeof ComprarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/certificado/$track': typeof AuthenticatedCertificadoTrackRoute
   '/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
   '/curso': typeof AuthenticatedCursoIndexRoute
 }
@@ -85,6 +94,7 @@ export interface FileRoutesById {
   '/comprar': typeof ComprarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/certificado/$track': typeof AuthenticatedCertificadoTrackRoute
   '/_authenticated/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
   '/_authenticated/curso/': typeof AuthenticatedCursoIndexRoute
 }
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/comprar'
     | '/reset-password'
     | '/admin'
+    | '/certificado/$track'
     | '/curso/$moduleId'
     | '/curso/'
   fileRoutesByTo: FileRoutesByTo
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/comprar'
     | '/reset-password'
     | '/admin'
+    | '/certificado/$track'
     | '/curso/$moduleId'
     | '/curso'
   id:
@@ -115,6 +127,7 @@ export interface FileRouteTypes {
     | '/comprar'
     | '/reset-password'
     | '/_authenticated/admin'
+    | '/_authenticated/certificado/$track'
     | '/_authenticated/curso/$moduleId'
     | '/_authenticated/curso/'
   fileRoutesById: FileRoutesById
@@ -185,17 +198,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCursoModuleIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/certificado/$track': {
+      id: '/_authenticated/certificado/$track'
+      path: '/certificado/$track'
+      fullPath: '/certificado/$track'
+      preLoaderRoute: typeof AuthenticatedCertificadoTrackRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedCertificadoTrackRoute: typeof AuthenticatedCertificadoTrackRoute
   AuthenticatedCursoModuleIdRoute: typeof AuthenticatedCursoModuleIdRoute
   AuthenticatedCursoIndexRoute: typeof AuthenticatedCursoIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedCertificadoTrackRoute: AuthenticatedCertificadoTrackRoute,
   AuthenticatedCursoModuleIdRoute: AuthenticatedCursoModuleIdRoute,
   AuthenticatedCursoIndexRoute: AuthenticatedCursoIndexRoute,
 }

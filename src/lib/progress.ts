@@ -19,7 +19,6 @@ export function useProgress(userId: string) {
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
-    setLoading(true);
     const { data, error } = await supabase
       .from("progress")
       .select("*")

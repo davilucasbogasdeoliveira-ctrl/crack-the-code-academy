@@ -104,6 +104,22 @@ function TrackList({
       <div className="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-border">
         <div className={`h-full bg-${track} transition-all duration-500`} style={{ width: `${percent}%` }} />
       </div>
+      <div className="mb-4">
+        {percent === 100 ? (
+          <Link
+            to="/certificado/$track"
+            params={{ track }}
+            className="inline-flex items-center gap-2 rounded-md bg-success px-3 py-2 text-sm font-medium text-success-foreground hover:opacity-90"
+          >
+            🏆 Ver meu certificado de {title}
+          </Link>
+        ) : (
+          <p className="text-xs text-muted-foreground">
+            Conclua os {total} módulos para liberar o certificado de {title}.
+          </p>
+        )}
+      </div>
+
       <div className="space-y-2">
         {modules.map((m) => {
           const row = progressRows.find((r) => r.module_id === m.id);

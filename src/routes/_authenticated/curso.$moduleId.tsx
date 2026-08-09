@@ -7,7 +7,7 @@ import { moduleVideos, moduleStudyGuide } from "@/content/extras";
 import { chunkText, oneLiner, readingMinutes, BREAK_TIPS } from "@/content/simplify";
 import { explainJargon } from "@/content/glossary";
 import { useAccess } from "@/lib/access";
-import { useProgress, moduleProgress } from "@/lib/progress";
+import { useProgress, moduleProgress, trackProgress } from "@/lib/progress";
 import { useEffect, useState } from "react";
 
 
@@ -66,6 +66,8 @@ function ModulePage() {
   const guide = moduleStudyGuide(mod);
   const allSections = mod.sections.map((s: Section, i: number) => ({ s, i }));
   const visibleSections = focus ? allSections.slice(step, step + 1) : allSections;
+  const trackDone = trackProgress(progressRows, mod.track).percent === 100;
+
 
 
   async function markComplete() {
@@ -218,7 +220,17 @@ function ModulePage() {
             <li key={c} className="flex gap-2"><span className="text-success">✓</span>{c}</li>
           ))}
         </ul>
+        {trackDone && (
+          <Link
+            to="/certificado/$track"
+            params={{ track: mod.track }}
+            className="mt-5 inline-flex items-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-medium text-success-foreground hover:opacity-90"
+          >
+            🏆 Você concluiu {trackLabel(mod.track)} — pegar meu certificado
+          </Link>
+        )}
       </section>
+
 
       <section className="mt-8 rounded-xl border border-border bg-card/50 p-6">
         <h2 className="text-xl font-bold">📝 Minhas anotações</h2>
