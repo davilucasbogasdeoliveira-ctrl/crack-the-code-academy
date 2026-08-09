@@ -66,6 +66,8 @@ function ModulePage() {
   const guide = moduleStudyGuide(mod);
   const allSections = mod.sections.map((s: Section, i: number) => ({ s, i }));
   const visibleSections = focus ? allSections.slice(step, step + 1) : allSections;
+  const trackDone = trackProgress(progressRows, mod.track).percent === 100;
+
 
 
   async function markComplete() {
