@@ -149,6 +149,7 @@ export type Database = {
         | "csharp"
         | "javascript"
         | "lua"
+        | "typescript"
       subscription_status: "pending" | "active" | "expired" | "blocked"
     }
     CompositeTypes: {
@@ -287,6 +288,7 @@ export const Constants = {
         "csharp",
         "javascript",
         "lua",
+        "typescript",
       ],
       subscription_status: ["pending", "active", "expired", "blocked"],
     },
