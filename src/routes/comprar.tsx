@@ -6,16 +6,16 @@ export const Route = createFileRoute("/comprar")({
   component: Comprar,
   head: () => ({
     meta: [
-      { title: "Comprar curso — The Code Academy | R$ 40 a 1ª linguagem" },
+      { title: "Comprar curso — The Code Academy | R$ 25 a 1ª linguagem" },
       {
         name: "description",
         content:
-          "Escolha suas linguagens no The Code Academy: R$ 40 a primeira e R$ 15 cada linguagem extra. Acesso vitalício, liberação pelo WhatsApp.",
+          "Escolha suas linguagens no The Code Academy: R$ 25 a primeira e R$ 15 cada linguagem extra. Acesso vitalício, liberação pelo WhatsApp.",
       },
       { property: "og:title", content: "Comprar curso — The Code Academy" },
       {
         property: "og:description",
-        content: "Monte seu combo de linguagens: R$ 40 a primeira, R$ 15 cada extra. Acesso vitalício.",
+        content: "Monte seu combo de linguagens: R$ 25 a primeira, R$ 15 cada extra. Acesso vitalício.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -24,7 +24,9 @@ export const Route = createFileRoute("/comprar")({
 });
 
 const WHATSAPP_NUMBER = "5514998422445";
-const FIRST_PRICE = 40;
+const FIRST_PRICE = 25;
+const COUPON_CODE = "CODE26";
+const COUPON_OFF = 0.1;
 const EXTRA_PRICE = 15;
 
 function priceFor(n: number) {

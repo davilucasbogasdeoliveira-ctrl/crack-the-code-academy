@@ -67,7 +67,7 @@ function Landing() {
             </a>
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
-            R$ 40 a primeira linguagem • R$ 15 cada linguagem extra • acesso vitalício
+            R$ 25 a primeira linguagem • R$ 15 cada linguagem extra • cupom CODE26 = 10% OFF • acesso vitalício
           </p>
         </section>
 
@@ -82,9 +82,9 @@ function Landing() {
           <div className="text-center">
             <h2 className="text-3xl font-bold">Escolha sua linguagem</h2>
             <p className="mt-2 text-muted-foreground">
-              <span className="text-primary font-semibold">R$ 40</span> a primeira linguagem e{" "}
+              <span className="text-primary font-semibold">R$ 25</span> a primeira linguagem e{" "}
               <span className="text-primary font-semibold">R$ 15</span> cada linguagem extra — pagamento
-              único, acesso vitalício.
+              único, acesso vitalício. Use o cupom <span className="text-primary font-semibold">CODE26</span> e ganhe 10% de desconto.
             </p>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -97,7 +97,7 @@ function Landing() {
                   <li className="flex gap-2"><span className="text-primary">✓</span> {modulesByTrack(t.id).length} módulos aprofundados</li>
                   <li className="flex gap-2"><span className="text-primary">✓</span> Exercícios com correção automática</li>
                   <li className="flex gap-2"><span className="text-primary">✓</span> Aulas em vídeo indicadas em cada módulo</li>
-                  <li className="flex gap-2"><span className="text-primary">✓</span> R$ 40 sozinha • R$ 15 junto com outra</li>
+                  <li className="flex gap-2"><span className="text-primary">✓</span> R$ 25 sozinha • R$ 15 junto com outra</li>
                 </ul>
                 <Link
                   to="/comprar"

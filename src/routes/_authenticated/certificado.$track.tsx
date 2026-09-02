@@ -114,7 +114,7 @@ function CertificatePage() {
           </div>
           <div>
             <p className="border-t border-border pt-2 font-mono text-xs text-muted-foreground">Instrutor responsável</p>
-            <p className="text-sm">Davi Lucas — The Code Academy</p>
+            <p className="text-sm">Gabriel de Oliveira — The Code Academy</p>
           </div>
         </div>
       </div>
