@@ -6,10 +6,10 @@ export default defineTool({
   name: "list_modules",
   title: "Listar módulos do curso",
   description:
-    "Lista os módulos do curso The Code Academy, opcionalmente filtrando por trilha (python, cpp, html, css, java, csharp, javascript, lua).",
+    "Lista os módulos do curso The Code Academy, opcionalmente filtrando por trilha (python, cpp, html, css, java, csharp, javascript, lua, typescript).",
   inputSchema: {
     track: z
-      .enum(["python", "cpp", "html", "css", "java", "csharp", "javascript", "lua"])
+      .enum(["python", "cpp", "html", "css", "java", "csharp", "javascript", "lua", "typescript"])
       .optional()
       .describe("Trilha para filtrar. Omita para listar todas."),
   },

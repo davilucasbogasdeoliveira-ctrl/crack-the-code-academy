@@ -1,0 +1,1 @@
+ALTER TYPE public.course_track ADD VALUE IF NOT EXISTS 'typescript';

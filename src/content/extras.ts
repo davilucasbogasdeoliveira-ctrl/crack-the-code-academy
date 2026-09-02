@@ -32,6 +32,10 @@ const TRACK_PLAYLISTS: Record<Track, { title: string; url: string }> = {
     title: "Curso completo de JavaScript (Curso em Vídeo)",
     url: "https://www.youtube.com/playlist?list=PLHz_AreHm4dlsK3Nr9GVvXCbpQyHQl1o1",
   },
+  typescript: {
+    title: "Curso completo de TypeScript (playlist gratuita)",
+    url: "https://www.youtube.com/results?search_query=curso+completo+de+typescript+portugu%C3%AAs",
+  },
   lua: {
     title: "Curso de Lua do zero (playlist gratuita)",
     url: "https://www.youtube.com/results?search_query=curso+completo+de+lua+programa%C3%A7%C3%A3o+portugu%C3%AAs",
@@ -47,6 +51,7 @@ const TRACK_QUERY: Record<Track, string> = {
   csharp: "c#",
   javascript: "javascript",
   lua: "lua",
+  typescript: "typescript",
 };
 
 /** Vídeos sugeridos para o módulo: playlist da trilha + busca específica do tema. */
@@ -74,6 +79,8 @@ const HOW_TO_STUDY: Record<Track, string> = {
     "Crie o projeto com `dotnet new console -o Teste` e rode cada exemplo com `dotnet run`. Leia a mensagem do compilador inteira: em C# ela quase sempre diz exatamente o que fazer.",
   javascript:
     "Abra o console do navegador (F12) e cole cada exemplo linha por linha. Antes de apertar Enter, tente adivinhar a saída — acertar ou errar a previsão é o que fixa o conceito.",
+  typescript:
+    "Crie um projeto com `npm init -y` e `npm i -D typescript tsx`. Rode cada exemplo com `npx tsx arquivo.ts` e, antes de rodar, olhe o sublinhado vermelho no editor: o erro de tipo é a aula.",
   lua:
     "Rode `lua arquivo.lua` no terminal (ou use o REPL digitando `lua`). Mexa nos valores do exemplo e rode de novo até entender por que a saída mudou.",
 };
@@ -113,6 +120,11 @@ const COMMON_MISTAKES: Record<Track, string[]> = {
     "Usar == em vez de === e cair nas conversões malucas de tipo.",
     "Esquecer o await e trabalhar com uma Promise achando que é o valor.",
     "Usar var e criar variável global sem querer; use const e let.",
+  ],
+  typescript: [
+    "Usar `any` para calar o compilador — você desliga justamente o que o TypeScript faz por você.",
+    "Usar `as` para forçar um tipo em dado vindo de API sem validar em runtime.",
+    "Achar que os tipos existem quando o código roda: eles somem na compilação.",
   ],
   lua: [
     "Esquecer o `local` e criar variável global que quebra o resto do programa.",

@@ -50,7 +50,7 @@ export function useAccess(userId: string, email?: string | null): Access {
       isOwner: (email ?? "").toLowerCase() === OWNER_EMAIL,
       sub,
       active,
-      tracks: isAdmin ? (["html", "css", "java", "python", "cpp", "csharp", "javascript", "lua"] as Track[]) : active ? granted : [],
+      tracks: isAdmin ? (["html", "css", "java", "python", "cpp", "csharp", "javascript", "lua", "typescript"] as Track[]) : active ? granted : [],
     });
   }, [userId, email]);
 
