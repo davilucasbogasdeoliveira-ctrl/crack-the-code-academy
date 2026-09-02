@@ -1,6 +1,6 @@
 // Conteúdo dos módulos — profundo mas conciso. Cada módulo tem seções.
 export type Section = { heading: string; body: string; code?: { lang: string; source: string } };
-export type Track = "python" | "cpp" | "html" | "css" | "java" | "csharp" | "javascript" | "lua";
+export type Track = "python" | "cpp" | "html" | "css" | "java" | "csharp" | "javascript" | "lua" | "typescript";
 export type Module = {
   id: string;
   track: Track;
@@ -20,6 +20,7 @@ const cs = mk("css");
 const jv = mk("java");
 
 import { EXTRA_MODULES } from "./modules-extra";
+import { TYPESCRIPT_MODULES } from "./modules-typescript";
 
 export const MODULES: Module[] = [
   // ---------- PYTHON ----------
@@ -523,6 +524,7 @@ export const MODULES: Module[] = [
       { heading: "System design", body: "Spring transactional propagation, cache (Caffeine, Redis), rate limit (bucket4j), idempotência. Explique trade-offs." },
     ]),
   ...EXTRA_MODULES,
+  ...TYPESCRIPT_MODULES,
 ];
 
 export function findModule(id: string) {
@@ -541,6 +543,7 @@ export const TRACKS: { id: Track; name: string; tag: string; blurb: string }[] =
   { id: "csharp", name: "C#", tag: "csharp", blurb: ".NET, LINQ, async/await, APIs com ASP.NET Core" },
   { id: "javascript", name: "JavaScript", tag: "javascript", blurb: "Event loop, DOM, async, módulos e Node.js" },
   { id: "lua", name: "Lua", tag: "lua", blurb: "Tables, metatables, scripting de jogos e embarcados" },
+  { id: "typescript", name: "TypeScript", tag: "typescript", blurb: "Tipos, generics, React/Node e código sem bug bobo" },
 ];
 
 export function trackLabel(t: Track) {

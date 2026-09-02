@@ -10,6 +10,7 @@ import "prismjs/components/prism-java";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-csharp";
 import "prismjs/components/prism-lua";
+import "prismjs/components/prism-typescript";
 
 type EditorComponent = (typeof CodeEditorModule)["default"];
 const mod = CodeEditorModule as unknown as {
@@ -32,6 +33,8 @@ const LANG_MAP: Record<string, string> = {
   js: "javascript",
   csharp: "csharp",
   lua: "lua",
+  typescript: "typescript",
+  ts: "typescript",
 };
 
 export function CodeEditor({

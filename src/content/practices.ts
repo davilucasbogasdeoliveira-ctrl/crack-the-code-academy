@@ -9,6 +9,7 @@ const langByTrack: Record<Track, string> = {
   csharp: "csharp",
   javascript: "javascript",
   lua: "lua",
+  typescript: "typescript",
 };
 
 const starterByTrack: Record<Track, string> = {
@@ -20,6 +21,7 @@ const starterByTrack: Record<Track, string> = {
   csharp: "using System;\n\nclass Program\n{\n    static void Main()\n    {\n        // seu código\n    }\n}\n",
   javascript: "// escreva seu código aqui\n",
   lua: "-- escreva seu código aqui\n",
+  typescript: "// escreva seu código TypeScript aqui\n",
 };
 
 export function getPractice(mod: Module): { language: string; prompt: string; starter: string } {
