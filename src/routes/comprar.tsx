@@ -186,7 +186,19 @@ function Comprar() {
                 placeholder="seu@email.com"
                 className="rounded-md border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
               />
+              <input
+                value={coupon}
+                onChange={(e) => setCoupon(e.target.value.slice(0, 20))}
+                placeholder="Cupom de desconto (opcional)"
+                className="rounded-md border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary sm:col-span-2"
+              />
             </div>
+            {coupon && !couponApplied && (
+              <p className="mt-2 font-mono text-xs text-destructive">Cupom inválido.</p>
+            )}
+            {couponApplied && (
+              <p className="mt-2 font-mono text-xs text-success">Cupom {COUPON_CODE} aplicado: 10% de desconto!</p>
+            )}
 
             <Bubble>
               Agora é só falar comigo no WhatsApp <strong>(14) 99842-2445</strong> — te passo o PIX e libero
