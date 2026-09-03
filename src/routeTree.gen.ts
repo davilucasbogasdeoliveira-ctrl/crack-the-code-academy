@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedProgressoRouteImport } from './routes/_authenticated/progresso'
+import { Route as AuthenticatedBuscaRouteImport } from './routes/_authenticated/busca'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedCursoIndexRouteImport } from './routes/_authenticated/curso.index'
 import { Route as AuthenticatedCursoModuleIdRouteImport } from './routes/_authenticated/curso.$moduleId'
@@ -49,6 +50,11 @@ const AuthenticatedProgressoRoute = AuthenticatedProgressoRouteImport.update({
   path: '/progresso',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedBuscaRoute = AuthenticatedBuscaRouteImport.update({
+  id: '/busca',
+  path: '/busca',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/comprar': typeof ComprarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/busca': typeof AuthenticatedBuscaRoute
   '/progresso': typeof AuthenticatedProgressoRoute
   '/certificado/$track': typeof AuthenticatedCertificadoTrackRoute
   '/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/comprar': typeof ComprarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/busca': typeof AuthenticatedBuscaRoute
   '/progresso': typeof AuthenticatedProgressoRoute
   '/certificado/$track': typeof AuthenticatedCertificadoTrackRoute
   '/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/comprar': typeof ComprarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/busca': typeof AuthenticatedBuscaRoute
   '/_authenticated/progresso': typeof AuthenticatedProgressoRoute
   '/_authenticated/certificado/$track': typeof AuthenticatedCertificadoTrackRoute
   '/_authenticated/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/comprar'
     | '/reset-password'
     | '/admin'
+    | '/busca'
     | '/progresso'
     | '/certificado/$track'
     | '/curso/$moduleId'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/comprar'
     | '/reset-password'
     | '/admin'
+    | '/busca'
     | '/progresso'
     | '/certificado/$track'
     | '/curso/$moduleId'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/comprar'
     | '/reset-password'
     | '/_authenticated/admin'
+    | '/_authenticated/busca'
     | '/_authenticated/progresso'
     | '/_authenticated/certificado/$track'
     | '/_authenticated/curso/$moduleId'
@@ -196,6 +208,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProgressoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/busca': {
+      id: '/_authenticated/busca'
+      path: '/busca'
+      fullPath: '/busca'
+      preLoaderRoute: typeof AuthenticatedBuscaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -229,6 +248,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedBuscaRoute: typeof AuthenticatedBuscaRoute
   AuthenticatedProgressoRoute: typeof AuthenticatedProgressoRoute
   AuthenticatedCertificadoTrackRoute: typeof AuthenticatedCertificadoTrackRoute
   AuthenticatedCursoModuleIdRoute: typeof AuthenticatedCursoModuleIdRoute
@@ -237,6 +257,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedBuscaRoute: AuthenticatedBuscaRoute,
   AuthenticatedProgressoRoute: AuthenticatedProgressoRoute,
   AuthenticatedCertificadoTrackRoute: AuthenticatedCertificadoTrackRoute,
   AuthenticatedCursoModuleIdRoute: AuthenticatedCursoModuleIdRoute,
