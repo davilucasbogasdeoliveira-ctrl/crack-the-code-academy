@@ -143,6 +143,11 @@ function Comprar() {
                 </span>
                 <span className="font-mono text-2xl font-bold text-primary">{brl(total)}</span>
               </div>
+              {couponApplied && (
+                <p className="mt-1 font-mono text-xs text-success">
+                  Cupom {COUPON_CODE} aplicado: -10% (de {brl(base)})
+                </p>
+              )}
               {selected.length > 1 && (
                 <p className="mt-1 font-mono text-xs text-muted-foreground">
                   {brl(FIRST_PRICE)} + {selected.length - 1} × {brl(EXTRA_PRICE)}
