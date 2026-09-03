@@ -44,8 +44,11 @@ function Comprar() {
   const [selected, setSelected] = useState<Track[]>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [coupon, setCoupon] = useState("");
 
-  const total = useMemo(() => priceFor(selected.length), [selected]);
+  const base = useMemo(() => priceFor(selected.length), [selected]);
+  const couponApplied = coupon.trim().toUpperCase() === COUPON_CODE && base > 0;
+  const total = couponApplied ? Math.round(base * (1 - COUPON_OFF)) : base;
 
   const toggle = (id: Track) =>
     setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
@@ -56,7 +59,9 @@ function Comprar() {
     [
       "Olá! Quero comprar o The Code Academy 👇",
       `Linguagens: ${names.join(", ")}`,
-      `Total: ${brl(total)} (R$ ${FIRST_PRICE} a 1ª + R$ ${EXTRA_PRICE} cada extra)`,
+      couponApplied
+        ? `Total: ${brl(total)} (cupom ${COUPON_CODE} -10% aplicado, de ${brl(base)})`
+        : `Total: ${brl(total)} (R$ ${FIRST_PRICE} a 1ª + R$ ${EXTRA_PRICE} cada extra)`,
       name ? `Nome: ${name}` : "",
       email ? `Email da conta: ${email}` : "",
       "Pode me passar a forma de pagamento?",
@@ -138,6 +143,11 @@ function Comprar() {
                 </span>
                 <span className="font-mono text-2xl font-bold text-primary">{brl(total)}</span>
               </div>
+              {couponApplied && (
+                <p className="mt-1 font-mono text-xs text-success">
+                  Cupom {COUPON_CODE} aplicado: -10% (de {brl(base)})
+                </p>
+              )}
               {selected.length > 1 && (
                 <p className="mt-1 font-mono text-xs text-muted-foreground">
                   {brl(FIRST_PRICE)} + {selected.length - 1} × {brl(EXTRA_PRICE)}
@@ -176,7 +186,19 @@ function Comprar() {
                 placeholder="seu@email.com"
                 className="rounded-md border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
               />
+              <input
+                value={coupon}
+                onChange={(e) => setCoupon(e.target.value.slice(0, 20))}
+                placeholder="Cupom de desconto (opcional)"
+                className="rounded-md border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary sm:col-span-2"
+              />
             </div>
+            {coupon && !couponApplied && (
+              <p className="mt-2 font-mono text-xs text-destructive">Cupom inválido.</p>
+            )}
+            {couponApplied && (
+              <p className="mt-2 font-mono text-xs text-success">Cupom {COUPON_CODE} aplicado: 10% de desconto!</p>
+            )}
 
             <Bubble>
               Agora é só falar comigo no WhatsApp <strong>(14) 99842-2445</strong> — te passo o PIX e libero
