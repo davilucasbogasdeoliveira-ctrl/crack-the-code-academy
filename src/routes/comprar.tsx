@@ -44,8 +44,11 @@ function Comprar() {
   const [selected, setSelected] = useState<Track[]>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [coupon, setCoupon] = useState("");
 
-  const total = useMemo(() => priceFor(selected.length), [selected]);
+  const base = useMemo(() => priceFor(selected.length), [selected]);
+  const couponApplied = coupon.trim().toUpperCase() === COUPON_CODE && base > 0;
+  const total = couponApplied ? Math.round(base * (1 - COUPON_OFF)) : base;
 
   const toggle = (id: Track) =>
     setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
