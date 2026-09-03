@@ -59,7 +59,9 @@ function Comprar() {
     [
       "Olá! Quero comprar o The Code Academy 👇",
       `Linguagens: ${names.join(", ")}`,
-      `Total: ${brl(total)} (R$ ${FIRST_PRICE} a 1ª + R$ ${EXTRA_PRICE} cada extra)`,
+      couponApplied
+        ? `Total: ${brl(total)} (cupom ${COUPON_CODE} -10% aplicado, de ${brl(base)})`
+        : `Total: ${brl(total)} (R$ ${FIRST_PRICE} a 1ª + R$ ${EXTRA_PRICE} cada extra)`,
       name ? `Nome: ${name}` : "",
       email ? `Email da conta: ${email}` : "",
       "Pode me passar a forma de pagamento?",
