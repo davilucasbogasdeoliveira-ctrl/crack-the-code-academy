@@ -22,6 +22,7 @@ export type Database = {
           module_id: string
           notes: string | null
           practice_count: number
+          quiz_score: number
           track: Database["public"]["Enums"]["course_track"]
           updated_at: string
           user_id: string
@@ -33,6 +34,7 @@ export type Database = {
           module_id: string
           notes?: string | null
           practice_count?: number
+          quiz_score?: number
           track: Database["public"]["Enums"]["course_track"]
           updated_at?: string
           user_id: string
@@ -44,6 +46,7 @@ export type Database = {
           module_id?: string
           notes?: string | null
           practice_count?: number
+          quiz_score?: number
           track?: Database["public"]["Enums"]["course_track"]
           updated_at?: string
           user_id?: string
