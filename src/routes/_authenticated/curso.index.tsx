@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { TRACKS, modulesByTrack, type Track } from "@/content/modules";
 import { useAccess, type SubRow } from "@/lib/access";
 import { useProgress, trackProgress } from "@/lib/progress";
+import { computeStats } from "@/lib/gamification";
 
 export const Route = createFileRoute("/_authenticated/curso/")({ component: CursoIndex });
 
@@ -22,19 +23,37 @@ function CursoIndex() {
   const unlocked = TRACKS.filter((t) => tracks.includes(t.id));
   const locked = TRACKS.filter((t) => !tracks.includes(t.id));
 
+  const stats = computeStats(progressRows);
+
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
-      <div className="mb-10">
-        <h1 className="text-4xl font-bold">Área do aluno</h1>
-        <p className="mt-2 text-muted-foreground">
-          {isAdmin ? (
-            "Acesso total (admin)"
-          ) : (
-            <>
-              Plano <span className="font-mono text-primary">Vitalício</span> • acesso para sempre ✨
-            </>
-          )}
-        </p>
+      <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <h1 className="text-4xl font-bold">Área do aluno</h1>
+          <p className="mt-2 text-muted-foreground">
+            {isAdmin ? (
+              "Acesso total (admin)"
+            ) : (
+              <>
+                Plano <span className="font-mono text-primary">Vitalício</span> • acesso para sempre ✨
+              </>
+            )}
+          </p>
+        </div>
+        <Link
+          to="/progresso"
+          className="flex items-center gap-4 rounded-2xl border border-border bg-card/60 px-5 py-4 hover:border-primary"
+        >
+          <div className="text-3xl">{stats.streak >= 3 ? "🔥" : "⭐"}</div>
+          <div>
+            <p className="font-mono text-sm font-bold text-primary">
+              Nível {stats.level.level} · {stats.xp.toLocaleString("pt-BR")} XP
+            </p>
+            <p className="text-xs text-muted-foreground">
+              {stats.streak > 0 ? `${stats.streak} dias de sequência` : `${stats.completedCount} módulos concluídos`}
+            </p>
+          </div>
+        </Link>
       </div>
 
       {unlocked.length === 0 ? (

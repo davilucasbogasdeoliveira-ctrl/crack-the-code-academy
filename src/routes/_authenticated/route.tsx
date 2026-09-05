@@ -37,6 +37,8 @@ function AuthedLayout() {
           </Link>
           <nav className="flex items-center gap-4 text-sm">
             <Link to="/curso" className="text-muted-foreground hover:text-foreground [&.active]:text-foreground">Curso</Link>
+            <Link to="/progresso" className="text-muted-foreground hover:text-foreground [&.active]:text-foreground">Progresso</Link>
+            <Link to="/busca" className="text-muted-foreground hover:text-foreground [&.active]:text-foreground">Busca</Link>
             {isAdmin && <Link to="/admin" className="text-warning hover:opacity-80 [&.active]:opacity-100">Admin</Link>}
             <span className="hidden font-mono text-xs text-muted-foreground md:inline">{user.email}</span>
             <button onClick={signOut} className="rounded-md border border-border px-3 py-1.5 text-xs hover:bg-accent">Sair</button>
