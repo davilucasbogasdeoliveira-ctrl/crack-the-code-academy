@@ -1,0 +1,1 @@
+ALTER TABLE public.progress ADD COLUMN IF NOT EXISTS quiz_score integer NOT NULL DEFAULT 0;
