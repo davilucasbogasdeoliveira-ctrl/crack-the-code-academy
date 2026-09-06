@@ -80,7 +80,7 @@ function IaPage() {
     setInput("");
     setLoading(true);
     try {
-      const r = await ask({ data: { messages: next.filter((m) => m.role !== "assistant" || next.indexOf(m) > 0).slice(-12) } });
+      const r = await ask({ data: { messages: next.slice(1).slice(-12) } });
       setMessages((m) => [...m, { role: "assistant", content: r.text }]);
     } catch {
       setMessages((m) => [...m, { role: "assistant", content: "Não consegui responder agora. Tente de novo em instantes." }]);
