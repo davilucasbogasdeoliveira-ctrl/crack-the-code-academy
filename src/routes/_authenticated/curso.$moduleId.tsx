@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { findModule, MODULES, trackLabel, type Section, type Track } from "@/content/modules";
 import { PracticeBox } from "@/components/PracticeBox";
+import { AulaIntro } from "@/components/AulaIntro";
+
 import { ReadAloud } from "@/components/ReadAloud";
 
 import { moduleVideos, moduleStudyGuide } from "@/content/extras";
@@ -111,7 +113,10 @@ function ModulePage() {
         ) : null}
       </div>
 
+      <AulaIntro mod={mod} />
+
       <div className="mt-8 rounded-xl border border-border bg-card/50 p-6">
+
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-mono text-sm text-primary">// prefere ouvir em vez de ler?</h2>
           <ReadAloud
