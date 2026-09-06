@@ -39,6 +39,7 @@ function AuthedLayout() {
             <Link to="/curso" className="text-muted-foreground hover:text-foreground [&.active]:text-foreground">Curso</Link>
             <Link to="/progresso" className="text-muted-foreground hover:text-foreground [&.active]:text-foreground">Progresso</Link>
             <Link to="/busca" className="text-muted-foreground hover:text-foreground [&.active]:text-foreground">Busca</Link>
+            <Link to="/ia" className="text-primary hover:opacity-80 [&.active]:opacity-100">I.A</Link>
             {isAdmin && <Link to="/admin" className="text-warning hover:opacity-80 [&.active]:opacity-100">Admin</Link>}
             <span className="hidden font-mono text-xs text-muted-foreground md:inline">{user.email}</span>
             <button onClick={signOut} className="rounded-md border border-border px-3 py-1.5 text-xs hover:bg-accent">Sair</button>
