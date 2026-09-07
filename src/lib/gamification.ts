@@ -85,7 +85,9 @@ export type Stats = ReturnType<typeof computeStats>;
 export function computeStats(rows: ProgressRow[]) {
   const completed = rows.filter((r) => r.completed);
   const practices = rows.reduce((sum, r) => sum + (r.practice_count ?? 0), 0);
-  const xp = completed.length * XP_PER_MODULE + practices * XP_PER_PRACTICE;
+  const quizXpTotal = rows.reduce((sum, r) => sum + quizXp(r.quiz_score ?? 0), 0);
+  const perfectQuizzes = rows.filter((r) => (r.quiz_score ?? 0) === 100).length;
+  const xp = completed.length * XP_PER_MODULE + practices * XP_PER_PRACTICE + quizXpTotal;
   const level = levelFor(xp);
   const days = studyDays(rows);
   const streak = streakFrom(days);
