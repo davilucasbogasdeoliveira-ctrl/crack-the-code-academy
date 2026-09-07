@@ -52,7 +52,7 @@ function ProgressoPage() {
           <div className="h-full bg-primary transition-all duration-700" style={{ width: `${s.level.percent}%` }} />
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          Cada módulo concluído vale {XP_PER_MODULE} XP e cada exercício enviado vale 25 XP.
+          Cada módulo concluído vale {XP_PER_MODULE} XP, cada exercício enviado vale 25 XP e cada quiz vale até 50 XP.
         </p>
       </div>
 
