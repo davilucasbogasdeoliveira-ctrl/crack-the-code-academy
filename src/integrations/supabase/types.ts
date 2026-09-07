@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      certificates: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          issued_at: string
+          reissued_count: number
+          track: Database["public"]["Enums"]["course_track"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          issued_at?: string
+          reissued_count?: number
+          track: Database["public"]["Enums"]["course_track"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          issued_at?: string
+          reissued_count?: number
+          track?: Database["public"]["Enums"]["course_track"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       progress: {
         Row: {
           completed: boolean
