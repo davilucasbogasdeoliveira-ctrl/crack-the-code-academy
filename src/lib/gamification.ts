@@ -3,6 +3,13 @@ import type { ProgressRow } from "@/lib/progress";
 
 export const XP_PER_MODULE = 100;
 export const XP_PER_PRACTICE = 25;
+/** XP máximo por quiz (100% da nota = 50 XP). */
+export const XP_PER_QUIZ = 50;
+
+/** XP ganho com a melhor nota de um quiz. */
+export function quizXp(score: number) {
+  return Math.round((Math.max(0, Math.min(100, score)) / 100) * XP_PER_QUIZ);
+}
 
 export const LEVELS = [
   { min: 0, name: "Iniciante" },
@@ -78,7 +85,9 @@ export type Stats = ReturnType<typeof computeStats>;
 export function computeStats(rows: ProgressRow[]) {
   const completed = rows.filter((r) => r.completed);
   const practices = rows.reduce((sum, r) => sum + (r.practice_count ?? 0), 0);
-  const xp = completed.length * XP_PER_MODULE + practices * XP_PER_PRACTICE;
+  const quizXpTotal = rows.reduce((sum, r) => sum + quizXp(r.quiz_score ?? 0), 0);
+  const perfectQuizzes = rows.filter((r) => (r.quiz_score ?? 0) === 100).length;
+  const xp = completed.length * XP_PER_MODULE + practices * XP_PER_PRACTICE + quizXpTotal;
   const level = levelFor(xp);
   const days = studyDays(rows);
   const streak = streakFrom(days);
@@ -117,6 +126,8 @@ export function computeStats(rows: ProgressRow[]) {
     { id: "track3", icon: "👑", title: "3 trilhas completas", desc: "Poliglota de código.", unlocked: masteredTracks.length >= 3 },
     { id: "xp2000", icon: "⭐", title: "2.000 XP", desc: "Muito estudo acumulado.", unlocked: xp >= 2000 },
     { id: "level5", icon: "🧠", title: "Nível 5", desc: "Evolução constante.", unlocked: level.level >= 5 },
+    { id: "quiz100", icon: "🎯", title: "Quiz perfeito", desc: "100% em um quiz de módulo.", unlocked: perfectQuizzes >= 1 },
+    { id: "quiz5", icon: "🧩", title: "5 quizzes perfeitos", desc: "Você domina a teoria.", unlocked: perfectQuizzes >= 5 },
   ];
 
   return {
@@ -125,6 +136,8 @@ export function computeStats(rows: ProgressRow[]) {
     streak,
     days,
     practices,
+    quizXpTotal,
+    perfectQuizzes,
     completedCount: completed.length,
     totalModules,
     overallPercent,

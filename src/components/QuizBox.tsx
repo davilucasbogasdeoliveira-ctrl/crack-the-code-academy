@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { quizFor } from "@/content/quizzes";
+import { quizXp } from "@/lib/gamification";
 import type { Module } from "@/content/modules";
 
 type Props = {
@@ -124,7 +125,7 @@ export function QuizBox({ mod, bestScore, onFinish }: Props) {
                 : "💪 Não desanime — revisar faz parte de aprender."}
           </p>
           <p className="mt-1 font-mono text-xs text-muted-foreground">
-            {correct} de {total} corretas · +{Math.round(score / 10) * 10} XP de quiz
+            {correct} de {total} corretas · +{quizXp(score)} XP de quiz
           </p>
 
           {wrongTopics.length > 0 && (

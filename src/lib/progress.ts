@@ -11,6 +11,7 @@ export type ProgressRow = {
   completed_at: string | null;
   practice_count: number;
   notes: string | null;
+  quiz_score: number;
   updated_at: string;
 };
 
