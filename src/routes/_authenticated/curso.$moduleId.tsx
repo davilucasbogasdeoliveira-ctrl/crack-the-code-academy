@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { findModule, MODULES, trackLabel, type Section, type Track } from "@/content/modules";
 import { PracticeBox } from "@/components/PracticeBox";
+import { QuizBox } from "@/components/QuizBox";
 import { AulaIntro } from "@/components/AulaIntro";
 
 import { ReadAloud } from "@/components/ReadAloud";
@@ -201,6 +202,12 @@ function ModulePage() {
       </section>
 
       <PracticeBox mod={mod} onSubmit={() => upsert(mod.id, {})} />
+
+      <QuizBox
+        mod={mod}
+        bestScore={row?.quiz_score ?? 0}
+        onFinish={(scorePercent) => upsert(mod.id, { quiz_score: scorePercent })}
+      />
 
       <section className="mt-12 rounded-xl border border-border bg-card/50 p-6">
         <h2 className="text-xl font-bold">🎥 Aulas em vídeo para reforçar</h2>
