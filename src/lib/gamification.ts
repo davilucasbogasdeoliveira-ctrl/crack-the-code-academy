@@ -3,6 +3,13 @@ import type { ProgressRow } from "@/lib/progress";
 
 export const XP_PER_MODULE = 100;
 export const XP_PER_PRACTICE = 25;
+/** XP máximo por quiz (100% da nota = 50 XP). */
+export const XP_PER_QUIZ = 50;
+
+/** XP ganho com a melhor nota de um quiz. */
+export function quizXp(score: number) {
+  return Math.round((Math.max(0, Math.min(100, score)) / 100) * XP_PER_QUIZ);
+}
 
 export const LEVELS = [
   { min: 0, name: "Iniciante" },
