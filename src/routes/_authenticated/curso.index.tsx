@@ -42,17 +42,30 @@ function CursoIndex() {
         </div>
         <Link
           to="/progresso"
-          className="flex items-center gap-4 rounded-2xl border border-border bg-card/60 px-5 py-4 hover:border-primary"
+          className="flex min-w-72 flex-col gap-2 rounded-2xl border border-border bg-card/60 px-5 py-4 hover:border-primary"
         >
-          <div className="text-3xl">{stats.streak >= 3 ? "🔥" : "⭐"}</div>
-          <div>
-            <p className="font-mono text-sm font-bold text-primary">
-              Nível {stats.level.level} · {stats.xp.toLocaleString("pt-BR")} XP
-            </p>
-            <p className="text-xs text-muted-foreground">
-              {stats.streak > 0 ? `${stats.streak} dias de sequência` : `${stats.completedCount} módulos concluídos`}
-            </p>
+          <div className="flex items-center gap-4">
+            <div className="text-3xl">{stats.streak >= 3 ? "🔥" : "⭐"}</div>
+            <div>
+              <p className="font-mono text-sm font-bold text-primary">
+                Nível {stats.level.level} · {stats.level.name} · {stats.xp.toLocaleString("pt-BR")} XP
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {stats.streak > 0 ? `🔥 ${stats.streak} dias de sequência` : `${stats.completedCount} módulos concluídos`}
+                {stats.quizXpTotal > 0 && ` · 🎯 ${stats.quizXpTotal} XP de quizzes`}
+              </p>
+            </div>
           </div>
+          {stats.level.nextName && (
+            <div>
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-border">
+                <div className="h-full bg-primary transition-all duration-500" style={{ width: `${stats.level.percent}%` }} />
+              </div>
+              <p className="mt-1 text-[11px] text-muted-foreground">
+                Faltam {stats.level.xpToNext} XP para {stats.level.nextName}
+              </p>
+            </div>
+          )}
         </Link>
       </div>
 
