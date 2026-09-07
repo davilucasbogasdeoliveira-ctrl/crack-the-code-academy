@@ -126,6 +126,8 @@ export function computeStats(rows: ProgressRow[]) {
     { id: "track3", icon: "👑", title: "3 trilhas completas", desc: "Poliglota de código.", unlocked: masteredTracks.length >= 3 },
     { id: "xp2000", icon: "⭐", title: "2.000 XP", desc: "Muito estudo acumulado.", unlocked: xp >= 2000 },
     { id: "level5", icon: "🧠", title: "Nível 5", desc: "Evolução constante.", unlocked: level.level >= 5 },
+    { id: "quiz100", icon: "🎯", title: "Quiz perfeito", desc: "100% em um quiz de módulo.", unlocked: perfectQuizzes >= 1 },
+    { id: "quiz5", icon: "🧩", title: "5 quizzes perfeitos", desc: "Você domina a teoria.", unlocked: perfectQuizzes >= 5 },
   ];
 
   return {
@@ -134,6 +136,8 @@ export function computeStats(rows: ProgressRow[]) {
     streak,
     days,
     practices,
+    quizXpTotal,
+    perfectQuizzes,
     completedCount: completed.length,
     totalModules,
     overallPercent,
