@@ -3,6 +3,8 @@ import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { TRACKS, type Track } from "@/content/modules";
 import { OWNER_EMAIL } from "@/lib/access";
+import { AdminReports } from "@/components/AdminReports";
+
 
 export const Route = createFileRoute("/_authenticated/admin")({
   beforeLoad: async ({ context }) => {
