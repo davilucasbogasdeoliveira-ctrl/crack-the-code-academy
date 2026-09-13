@@ -3,6 +3,8 @@ import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { TRACKS, type Track } from "@/content/modules";
 import { OWNER_EMAIL } from "@/lib/access";
+import { AdminReports } from "@/components/AdminReports";
+
 
 export const Route = createFileRoute("/_authenticated/admin")({
   beforeLoad: async ({ context }) => {
@@ -22,7 +24,7 @@ type Row = {
 function AdminPanel() {
   const { user } = Route.useRouteContext();
   const isOwner = (user.email ?? "").toLowerCase() === OWNER_EMAIL;
-  const [tab, setTab] = useState<"alunos" | "admins">("alunos");
+  const [tab, setTab] = useState<"alunos" | "relatorios" | "admins">("alunos");
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
@@ -33,13 +35,15 @@ function AdminPanel() {
 
       <div className="mb-8 flex gap-2 border-b border-border">
         <TabButton active={tab === "alunos"} onClick={() => setTab("alunos")}>Alunos e linguagens</TabButton>
+        <TabButton active={tab === "relatorios"} onClick={() => setTab("relatorios")}>Notas e certificados</TabButton>
         {isOwner && <TabButton active={tab === "admins"} onClick={() => setTab("admins")}>Administradores</TabButton>}
       </div>
 
-      {tab === "alunos" ? <StudentsTab /> : isOwner ? <AdminsTab currentUserId={user.id} /> : null}
+      {tab === "alunos" ? <StudentsTab /> : tab === "relatorios" ? <AdminReports /> : isOwner ? <AdminsTab currentUserId={user.id} /> : null}
     </div>
   );
 }
+
 
 function TabButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (

@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { TRACKS, modulesByTrack, trackLabel, type Track } from "@/content/modules";
 import { useAccess } from "@/lib/access";
 import { useProgress, trackProgress } from "@/lib/progress";
+import { supabase } from "@/integrations/supabase/client";
+import { makeCertificateCode } from "@/lib/certificates";
+
 
 const TRACK_IDS = TRACKS.map((t) => t.id) as Track[];
 
@@ -20,6 +23,8 @@ function CertificatePage() {
   const { loading, tracks } = useAccess(user.id, user.email);
   const { rows, loading: progressLoading } = useProgress(user.id);
   const [name, setName] = useState("");
+  const [certCode, setCertCode] = useState<string | null>(null);
+
 
   useEffect(() => {
     const saved = localStorage.getItem("tca-nome");
@@ -28,6 +33,32 @@ function CertificatePage() {
   useEffect(() => {
     if (name) localStorage.setItem("tca-nome", name);
   }, [name]);
+
+  useEffect(() => {
+    if (progressLoading) return;
+    if (trackProgress(rows, track).percent !== 100) return;
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase
+        .from("certificates")
+        .select("code")
+        .eq("user_id", user.id)
+        .eq("track", track)
+        .maybeSingle();
+      if (cancelled) return;
+      if (data?.code) {
+        setCertCode(data.code);
+        return;
+      }
+      const newCode = makeCertificateCode(track);
+      await supabase.from("certificates").insert({ user_id: user.id, track, code: newCode });
+      if (!cancelled) setCertCode(newCode);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [progressLoading, rows, track, user.id]);
+
 
   if (loading || progressLoading)
     return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Carregando…</div>;
@@ -53,7 +84,7 @@ function CertificatePage() {
     month: "long",
     year: "numeric",
   });
-  const code = `TCA-${track.toUpperCase()}-${user.id.slice(0, 8).toUpperCase()}`;
+  const code = certCode ?? "gerando…";
 
   if (!done)
     return (
