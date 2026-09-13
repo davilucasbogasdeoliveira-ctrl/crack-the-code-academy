@@ -22,7 +22,9 @@ function CertificatePage() {
   const { user } = Route.useRouteContext();
   const { loading, tracks } = useAccess(user.id, user.email);
   const { rows, loading: progressLoading } = useProgress(user.id);
+  const [name, setName] = useState("");
   const [certCode, setCertCode] = useState<string | null>(null);
+
 
   useEffect(() => {
     const saved = localStorage.getItem("tca-nome");
