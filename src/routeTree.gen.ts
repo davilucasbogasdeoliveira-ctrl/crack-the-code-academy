@@ -14,6 +14,7 @@ import { Route as ComprarRouteImport } from './routes/comprar'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedQuizRouteImport } from './routes/_authenticated/quiz'
 import { Route as AuthenticatedProgressoRouteImport } from './routes/_authenticated/progresso'
 import { Route as AuthenticatedIaRouteImport } from './routes/_authenticated/ia'
 import { Route as AuthenticatedBuscaRouteImport } from './routes/_authenticated/busca'
@@ -45,6 +46,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedQuizRoute = AuthenticatedQuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedProgressoRoute = AuthenticatedProgressoRouteImport.update({
   id: '/progresso',
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/busca': typeof AuthenticatedBuscaRoute
   '/ia': typeof AuthenticatedIaRoute
   '/progresso': typeof AuthenticatedProgressoRoute
+  '/quiz': typeof AuthenticatedQuizRoute
   '/certificado/$track': typeof AuthenticatedCertificadoTrackRoute
   '/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
   '/curso/': typeof AuthenticatedCursoIndexRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByTo {
   '/busca': typeof AuthenticatedBuscaRoute
   '/ia': typeof AuthenticatedIaRoute
   '/progresso': typeof AuthenticatedProgressoRoute
+  '/quiz': typeof AuthenticatedQuizRoute
   '/certificado/$track': typeof AuthenticatedCertificadoTrackRoute
   '/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
   '/curso': typeof AuthenticatedCursoIndexRoute
@@ -121,6 +129,7 @@ export interface FileRoutesById {
   '/_authenticated/busca': typeof AuthenticatedBuscaRoute
   '/_authenticated/ia': typeof AuthenticatedIaRoute
   '/_authenticated/progresso': typeof AuthenticatedProgressoRoute
+  '/_authenticated/quiz': typeof AuthenticatedQuizRoute
   '/_authenticated/certificado/$track': typeof AuthenticatedCertificadoTrackRoute
   '/_authenticated/curso/$moduleId': typeof AuthenticatedCursoModuleIdRoute
   '/_authenticated/curso/': typeof AuthenticatedCursoIndexRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/busca'
     | '/ia'
     | '/progresso'
+    | '/quiz'
     | '/certificado/$track'
     | '/curso/$moduleId'
     | '/curso/'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/busca'
     | '/ia'
     | '/progresso'
+    | '/quiz'
     | '/certificado/$track'
     | '/curso/$moduleId'
     | '/curso'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/_authenticated/busca'
     | '/_authenticated/ia'
     | '/_authenticated/progresso'
+    | '/_authenticated/quiz'
     | '/_authenticated/certificado/$track'
     | '/_authenticated/curso/$moduleId'
     | '/_authenticated/curso/'
@@ -212,6 +224,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/quiz': {
+      id: '/_authenticated/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof AuthenticatedQuizRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/progresso': {
       id: '/_authenticated/progresso'
@@ -270,6 +289,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBuscaRoute: typeof AuthenticatedBuscaRoute
   AuthenticatedIaRoute: typeof AuthenticatedIaRoute
   AuthenticatedProgressoRoute: typeof AuthenticatedProgressoRoute
+  AuthenticatedQuizRoute: typeof AuthenticatedQuizRoute
   AuthenticatedCertificadoTrackRoute: typeof AuthenticatedCertificadoTrackRoute
   AuthenticatedCursoModuleIdRoute: typeof AuthenticatedCursoModuleIdRoute
   AuthenticatedCursoIndexRoute: typeof AuthenticatedCursoIndexRoute
@@ -280,6 +300,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBuscaRoute: AuthenticatedBuscaRoute,
   AuthenticatedIaRoute: AuthenticatedIaRoute,
   AuthenticatedProgressoRoute: AuthenticatedProgressoRoute,
+  AuthenticatedQuizRoute: AuthenticatedQuizRoute,
   AuthenticatedCertificadoTrackRoute: AuthenticatedCertificadoTrackRoute,
   AuthenticatedCursoModuleIdRoute: AuthenticatedCursoModuleIdRoute,
   AuthenticatedCursoIndexRoute: AuthenticatedCursoIndexRoute,
