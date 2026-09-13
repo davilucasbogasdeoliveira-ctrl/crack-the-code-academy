@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { TRACKS, modulesByTrack, trackLabel, type Track } from "@/content/modules";
 import { useAccess } from "@/lib/access";
 import { useProgress, trackProgress } from "@/lib/progress";
+import { supabase } from "@/integrations/supabase/client";
+import { makeCertificateCode } from "@/lib/certificates";
+
 
 const TRACK_IDS = TRACKS.map((t) => t.id) as Track[];
 
