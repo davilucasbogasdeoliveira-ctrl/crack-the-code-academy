@@ -29,6 +29,32 @@ function CertificatePage() {
     if (name) localStorage.setItem("tca-nome", name);
   }, [name]);
 
+  useEffect(() => {
+    if (progressLoading) return;
+    if (trackProgress(rows, track).percent !== 100) return;
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase
+        .from("certificates")
+        .select("code")
+        .eq("user_id", user.id)
+        .eq("track", track)
+        .maybeSingle();
+      if (cancelled) return;
+      if (data?.code) {
+        setCertCode(data.code);
+        return;
+      }
+      const newCode = makeCertificateCode(track);
+      await supabase.from("certificates").insert({ user_id: user.id, track, code: newCode });
+      if (!cancelled) setCertCode(newCode);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [progressLoading, rows, track, user.id]);
+
+
   if (loading || progressLoading)
     return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Carregando…</div>;
 
