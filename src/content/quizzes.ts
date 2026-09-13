@@ -410,6 +410,21 @@ const BANK: Record<Track, QuizQuestion[]> = {
   ],
 };
 
+/** Todas as perguntas disponíveis de uma trilha. */
+export function quizBank(track: Track): QuizQuestion[] {
+  return BANK[track] ?? [];
+}
+
+/** Sorteia N perguntas de uma trilha, em ordem aleatória. */
+export function randomQuiz(track: Track, count: number): QuizQuestion[] {
+  const bank = [...quizBank(track)];
+  for (let i = bank.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [bank[i], bank[j]] = [bank[j], bank[i]];
+  }
+  return bank.slice(0, Math.min(count, bank.length));
+}
+
 /** Retorna 5 perguntas da trilha (embaralha a ordem das alternativas fica a cargo do componente). */
 export function quizFor(track: Track, seed = 0): QuizQuestion[] {
   const bank = BANK[track] ?? [];
