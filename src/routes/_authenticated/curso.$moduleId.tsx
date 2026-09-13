@@ -118,6 +118,9 @@ function ModulePage() {
 
       <AulaIntro mod={mod} />
 
+      <FocusTimer />
+
+
       <div className="mt-8 rounded-xl border border-border bg-card/50 p-6">
 
         <div className="flex flex-wrap items-center justify-between gap-3">
