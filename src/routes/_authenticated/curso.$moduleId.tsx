@@ -3,6 +3,8 @@ import { findModule, MODULES, trackLabel, type Section, type Track } from "@/con
 import { PracticeBox } from "@/components/PracticeBox";
 import { QuizBox } from "@/components/QuizBox";
 import { AulaIntro } from "@/components/AulaIntro";
+import { FocusTimer } from "@/components/FocusTimer";
+
 
 import { ReadAloud } from "@/components/ReadAloud";
 
