@@ -84,7 +84,7 @@ function CertificatePage() {
     month: "long",
     year: "numeric",
   });
-  const code = `TCA-${track.toUpperCase()}-${user.id.slice(0, 8).toUpperCase()}`;
+  const code = certCode ?? "gerando…";
 
   if (!done)
     return (
