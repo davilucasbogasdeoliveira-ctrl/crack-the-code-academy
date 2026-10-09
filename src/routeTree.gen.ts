@@ -9,32 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as ComprarRouteImport } from './routes/comprar'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
-import { Route as AuthenticatedBuscaRouteImport } from './routes/_authenticated/busca'
-import { Route as AuthenticatedIaRouteImport } from './routes/_authenticated/ia'
-import { Route as AuthenticatedProgressoRouteImport } from './routes/_authenticated/progresso'
+import { Route as ComprarRouteImport } from './routes/comprar'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedQuizRouteImport } from './routes/_authenticated/quiz'
-import { Route as AuthenticatedCertificadoTrackRouteImport } from './routes/_authenticated/certificado.$track'
+import { Route as AuthenticatedProgressoRouteImport } from './routes/_authenticated/progresso'
+import { Route as AuthenticatedIaRouteImport } from './routes/_authenticated/ia'
+import { Route as AuthenticatedBuscaRouteImport } from './routes/_authenticated/busca'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedCursoIndexRouteImport } from './routes/_authenticated/curso.index'
 import { Route as AuthenticatedCursoModuleIdRouteImport } from './routes/_authenticated/curso.$moduleId'
+import { Route as AuthenticatedCertificadoTrackRouteImport } from './routes/_authenticated/certificado.$track'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ComprarRoute = ComprarRouteImport.update({
@@ -42,24 +33,23 @@ const ComprarRoute = ComprarRouteImport.update({
   path: '/comprar',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedBuscaRoute = AuthenticatedBuscaRouteImport.update({
-  id: '/busca',
-  path: '/busca',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedIaRoute = AuthenticatedIaRouteImport.update({
-  id: '/ia',
-  path: '/ia',
+const AuthenticatedQuizRoute = AuthenticatedQuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedProgressoRoute = AuthenticatedProgressoRouteImport.update({
@@ -67,17 +57,21 @@ const AuthenticatedProgressoRoute = AuthenticatedProgressoRouteImport.update({
   path: '/progresso',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedQuizRoute = AuthenticatedQuizRouteImport.update({
-  id: '/quiz',
-  path: '/quiz',
+const AuthenticatedIaRoute = AuthenticatedIaRouteImport.update({
+  id: '/ia',
+  path: '/ia',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedCertificadoTrackRoute =
-  AuthenticatedCertificadoTrackRouteImport.update({
-    id: '/certificado/$track',
-    path: '/certificado/$track',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
+const AuthenticatedBuscaRoute = AuthenticatedBuscaRouteImport.update({
+  id: '/busca',
+  path: '/busca',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedCursoIndexRoute = AuthenticatedCursoIndexRouteImport.update({
   id: '/curso/',
   path: '/curso/',
@@ -87,6 +81,12 @@ const AuthenticatedCursoModuleIdRoute =
   AuthenticatedCursoModuleIdRouteImport.update({
     id: '/curso/$moduleId',
     path: '/curso/$moduleId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedCertificadoTrackRoute =
+  AuthenticatedCertificadoTrackRouteImport.update({
+    id: '/certificado/$track',
+    path: '/certificado/$track',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
@@ -190,25 +190,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/comprar': {
@@ -218,32 +204,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComprarRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/busca': {
-      id: '/_authenticated/busca'
-      path: '/busca'
-      fullPath: '/busca'
-      preLoaderRoute: typeof AuthenticatedBuscaRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/ia': {
-      id: '/_authenticated/ia'
-      path: '/ia'
-      fullPath: '/ia'
-      preLoaderRoute: typeof AuthenticatedIaRouteImport
+    '/_authenticated/quiz': {
+      id: '/_authenticated/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof AuthenticatedQuizRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/progresso': {
@@ -253,18 +239,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProgressoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/quiz': {
-      id: '/_authenticated/quiz'
-      path: '/quiz'
-      fullPath: '/quiz'
-      preLoaderRoute: typeof AuthenticatedQuizRouteImport
+    '/_authenticated/ia': {
+      id: '/_authenticated/ia'
+      path: '/ia'
+      fullPath: '/ia'
+      preLoaderRoute: typeof AuthenticatedIaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/certificado/$track': {
-      id: '/_authenticated/certificado/$track'
-      path: '/certificado/$track'
-      fullPath: '/certificado/$track'
-      preLoaderRoute: typeof AuthenticatedCertificadoTrackRouteImport
+    '/_authenticated/busca': {
+      id: '/_authenticated/busca'
+      path: '/busca'
+      fullPath: '/busca'
+      preLoaderRoute: typeof AuthenticatedBuscaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/curso/': {
@@ -279,6 +272,13 @@ declare module '@tanstack/react-router' {
       path: '/curso/$moduleId'
       fullPath: '/curso/$moduleId'
       preLoaderRoute: typeof AuthenticatedCursoModuleIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/certificado/$track': {
+      id: '/_authenticated/certificado/$track'
+      path: '/certificado/$track'
+      fullPath: '/certificado/$track'
+      preLoaderRoute: typeof AuthenticatedCertificadoTrackRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
