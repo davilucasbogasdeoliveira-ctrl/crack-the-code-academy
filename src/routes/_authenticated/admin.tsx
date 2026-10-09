@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { TRACKS, type Track } from "@/content/modules";
 import { OWNER_EMAIL } from "@/lib/access";
 import { AdminReports } from "@/components/AdminReports";
+import { QrPromo } from "@/components/QrPromo";
 
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -24,7 +25,7 @@ type Row = {
 function AdminPanel() {
   const { user } = Route.useRouteContext();
   const isOwner = (user.email ?? "").toLowerCase() === OWNER_EMAIL;
-  const [tab, setTab] = useState<"alunos" | "relatorios" | "admins">("alunos");
+  const [tab, setTab] = useState<"alunos" | "relatorios" | "admins" | "qr">("alunos");
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
@@ -33,13 +34,14 @@ function AdminPanel() {
         <p className="mt-1 text-muted-foreground">Libere o acesso vitalício e escolha as linguagens de cada aluno.</p>
       </div>
 
-      <div className="mb-8 flex gap-2 border-b border-border">
+      <div className="mb-8 flex flex-wrap gap-2 border-b border-border">
         <TabButton active={tab === "alunos"} onClick={() => setTab("alunos")}>Alunos e linguagens</TabButton>
         <TabButton active={tab === "relatorios"} onClick={() => setTab("relatorios")}>Notas e certificados</TabButton>
+        <TabButton active={tab === "qr"} onClick={() => setTab("qr")}>QR de divulgação</TabButton>
         {isOwner && <TabButton active={tab === "admins"} onClick={() => setTab("admins")}>Administradores</TabButton>}
       </div>
 
-      {tab === "alunos" ? <StudentsTab /> : tab === "relatorios" ? <AdminReports /> : isOwner ? <AdminsTab currentUserId={user.id} /> : null}
+      {tab === "alunos" ? <StudentsTab /> : tab === "relatorios" ? <AdminReports /> : tab === "qr" ? <QrPromo /> : isOwner ? <AdminsTab currentUserId={user.id} /> : null}
     </div>
   );
 }
